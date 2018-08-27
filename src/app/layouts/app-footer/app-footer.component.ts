@@ -18,6 +18,11 @@ export class AppFooter implements OnInit {
   public devEmpFrace: string;
   public fechaTrabajo: string;
   public anio: number;
+  public empiniciales: string;
+  public emplink: string;
+  public empfrase: string;
+  public empcorreoinfo: string;
+
 
 
   constructor ( private _configServices: ConfigService )
