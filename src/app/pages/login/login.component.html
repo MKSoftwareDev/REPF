@@ -47,7 +47,7 @@
     <div class="text-center">
         <span class="auth-head-icon"><i class="la la-user"></i></span>
     </div> 
-    <form class="ibox-body" id="login-form" #loginform ="ngForm" (ngSubmit)="onSubmit()" >
+    <form class="ibox-body" id="login-form" #loginform ="ngForm" (ngSubmit)="MkClickLogin()" >
         <h5 class="font-strong text-center ">LOG IN</h5>
         <div class="form-group mb-4">
             <input class="form-control form-control-line" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname"  placeholder="User">
@@ -58,9 +58,10 @@
 
         <div class="form-group mb-4">            
             <select class="selectpicker form-control" id="empresa" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa" placeholder="enterprise" >
-                <option *ngFor="let e of empresalst" [ngValue]="e._id">
-                {{e.empresa}}
-                </option>            
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="vw">VW</option>
+                <option value="audi" selected>Audi</option>           
             </select>
         </div>
         <div class="form-group mb-4">

@@ -10,7 +10,8 @@ import { UserService } from '../../_services/u/user.service';
 import { EmpresaService } from '../../_services/e/empresa.services';
 
 // sweetalert2
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
+//const Swal = require('sweetalert2');
 
 declare var $:any;
 
@@ -89,19 +90,114 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     //console.log(this.user);
    this.clickMessage = 'You are my hero!';
 	 window.alert(this.clickMessage);
+	 Swal('Oops...', 'Something went wrong!', 'error');
+	 Swal({
+		title: 'Are you sure?',
+		text: 'You will not be able to recover this imaginary file!',
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Yes, delete it!',
+		cancelButtonText: 'No, keep it'
+	}).then((result) => {
+		if (result.value) {
+			Swal(
+				'Deleted!',
+				'Your imaginary file has been deleted.',
+				'success'
+			)
+		// For more information about handling dismissals please visit
+		// https://sweetalert2.github.io/#handling-dismissals
+		} else if (result.dismiss === Swal.DismissReason.cancel) {
+			Swal(
+				'Cancelled',
+				'Your imaginary file is safe :)',
+				'error'
+			)
+		}
+	})
 	 this._router.navigate(['index']);
 	 }
 	 
-	 getEmpresaAll(){
-		 this._empresaService.empresasAll().subscribe(
-			 response => {
-				 if (response.empresa){
-					this.empresalst = response.empresa;
-					 console.log(this.empresalst);
-				 } else {
-					 console.log('error al responder');
-				 }
-			 }
-		 );
-	 }
+	getEmpresaAll(){
+		this._empresaService.empresasAll().subscribe(
+			response => {
+				if (response.empresa){
+				this.empresalst = response.empresa;
+					console.log(this.empresalst);
+				} else {
+					console.log('error al responder');
+				}
+			}
+		);
+	}
+
+	 MkClickLogin(){
+		//console.log('inicio');
+		console.log(this.user);
+		//loguear al usuario y conseguir el objeto
+		this.loginEmpresa = this.user.empresa;
+		this.loginSucursal = this.user.sucursal;
+		this.loginFechaTrabajo = this.user.fechatrabajo;
+
+
+		this._userService.signup(this.user,).subscribe(
+			response=>{
+
+				
+				this.identity=response.user;
+				this.message=response.message;
+				//console.log(response.user);
+				//console.log(response.user);
+
+				//if(!this.identity || !this.identity._id){
+				if (!this.identity || !this.identity._id) {
+					console.log('El usuario no se ha logueado correctamente');
+					this.status='error';
+				}else{
+					this.identity.password='';
+					//conseguir elñ token
+					//console.log(this.identity);
+					localStorage.setItem('identity',JSON.stringify(this.identity));
+					this._userService.signup(this.user,'true').subscribe(
+						response=>{
+							this.token = response.token;
+							if(this.token.length <=0 ){
+								alert('el token no se ha generado');
+								this.status='error';
+
+							}else{
+								//console.log(this.token);
+								localStorage.setItem('token', this.token);
+								localStorage.setItem('loginEmpresa',this.loginEmpresa);
+								localStorage.setItem('loginSucursal',this.loginSucursal);
+								localStorage.setItem('loginFechaTrabajo',this.loginFechaTrabajo);
+
+
+								this.status = 'success';
+								Swal('Bienvenido...' + this.identity.nombre , this.devEmpresa, 'success');
+								this._router.navigate(['index']);
+							}
+						},
+						error=>{
+							console.log('Segundo Error');
+							console.log(<any>error);
+						}				 			
+					);
+				}
+			},
+			error=>{
+				//console.log('Primer Error');
+				console.log(<any>error)
+				var errorMessage =<any>error;
+				if (errorMessage != null) {
+					var mkerrores =JSON.parse(error._body);
+					//console.log(mkerrores.message);					
+					//alert(mkerrores.message);
+					Swal(mkerrores.message + '...', this.devEmpresa+'HRO', 'error');
+					this.status='error';
+
+			}
+		}
+	);		
+	}
 }
