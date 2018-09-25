@@ -9,7 +9,9 @@ import { config } from '../../../assets/global/config';
 })
 export class AppHeader implements OnInit, AfterViewInit {
   public empresa: string;
-  public empiniciales: string;
+  public sucursal: string;
+  public fechaTrabajo : string;
+  public usuario : string;
   //public arrCfg: string[];
 
 constructor (
@@ -24,28 +26,31 @@ constructor (
   
   
   ngOnInit () {
-    //console.log(this._configServices.configServiceTest);
-    this.getCfgData();
-    //console.log(this.arrCfg);
+
+    var i;
+
+    console.log("local storage");
+    for (i = 0; i < localStorage.length; i++)   {
+        console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+    }
+    
+    console.log("session storage");
+    for (i = 0; i < sessionStorage.length; i++) {
+        console.log(sessionStorage.key(i) + "=[" + sessionStorage.getItem(sessionStorage.key(i)) + "]");
+    }
+
+    if ((localStorage.identity !== undefined)) {
+      this.empresa = localStorage.getItem('loginEmpresa');
+      this.fechaTrabajo = localStorage.getItem('loginFechaTrabajo');
+      this.sucursal = localStorage.getItem('loginSucursal');
+      this.usuario = localStorage.getItem('identity[0].surname');
+
+    } else {
+      console.log('footer no se encontro localStorage.nombre');
+    }
   }
 
   
-  getCfgData(){
-    this._configServices.getConfig().subscribe(
-      response => {
-        if (response.cfg) {
-          //this.arrCfg = response.cfg;
-          this.empresa = response.cfg.empresa.nombre;
-          this.empiniciales = response.cfg.empresa.iniciales;
-          //console.log(this.arrCfg[0].empresa.nombre);
-        } else {
-          console.log('vacio');
-        }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-  }
+
 
 }

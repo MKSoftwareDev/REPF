@@ -33,44 +33,19 @@ export class AppFooter implements OnInit {
    this.devEmpFrace = devEmpresaConfig.frace;
   }
 
-  ngOnInit () {
-    this.getCfgData();
+  ngOnInit () {    
     if ((localStorage.identity !== undefined)) {
       this.empresa = localStorage.getItem('loginEmpresa');
       this.fechaTrabajo = localStorage.getItem('loginFechaTrabajo');
       this.sucursal = localStorage.getItem('loginSucursal');
-      // console.log('footer' + localStorage.getItem('identity'));
-      // console.log('footer' + localStorage.getItem('loginEmpresa'));
-      // console.log('footer' + localStorage.getItem('loginSucursal'));
-      // console.log('footer' + localStorage.getItem('loginFechaTrabajo'));
 
     } else {
       console.log('footer no se encontro localStorage.nombre');
     }
-      // console.log(this.arrCfg);
+      
   }
 
-  getCfgData(){
-    this._configServices.getConfig().subscribe(
-      response => {
-        if (response.cfg) {
-          // asignamos el arreglo
-          // this.arrCfg = response.cfg;
-          // this.empresa = response.cfg[0].empresa.nombre;
-          this.empiniciales = response.cfg[0].empresa.iniciales;
-          this.emplink = response.cfg[0].empresa.url;
-          this.empfrase = response.cfg[0].empresa.frase;
-          this.empcorreoinfo = response.cfg[0].empresa.correoinfo;
-          console.log(response.cfg[0].empresa.nombre);
-        } else {
-          console.log('vacio');
-        }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-  }
+
 
 }
 

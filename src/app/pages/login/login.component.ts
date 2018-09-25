@@ -8,6 +8,8 @@ import { User } from '../../_models/u/user.model';
 import { ScriptLoaderService } from '../../_services/script-loader.service';
 import { UserService } from '../../_services/u/user.service';
 import { EmpresaService } from '../../_services/e/empresa.services';
+import { SucursalService } from '../../_services/s/sucursal.service';
+
 
 // sweetalert2
 import Swal from 'sweetalert2';
@@ -18,27 +20,36 @@ declare var $:any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  providers: [UserService, EmpresaService]
+  providers: [UserService, EmpresaService, SucursalService]
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
-  public user: User;
-  public identity;
-  public token;
+	public user: User;
+	public identity;
+	
+	public token;
 	public status: string;
 	public errores: string[];
-	public empresalst: any[];
-  public message: string;
-  public anio: number;
-  public devEmpresa: string;
+	public empresalst: string[];
+	public sucursallst: any[];
+	public message: string;
+	public anio: number;
+	public devEmpresa: string;
 	public clickMessage = '';
+	public loginUser: string;
+	public loginPassword: string;
 	public loginEmpresa: string;
 	public loginSucursal: string;
 	public loginFechaTrabajo: string;
-	public lUsers: any[] = [
-		{ Name: 'Billy Williams', Gender: 'male' },
-		{ Name: 'Sally Ride', Gender: 'female'}
-		];
+	public countries = [
+		{id: 1, name: "United States"},
+		{id: 2, name: "Australia"},
+		{id: 3, name: "Canada"},
+		{id: 4, name: "Brazil"},
+		{id: 5, name: "England"}
+	  ];
 		curUser: any;
+	public nuevoelement:string;
+
 
 
   constructor(
@@ -46,12 +57,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     private _router: Router,
 		private _userService: UserService,
 		private _empresaService: EmpresaService,
+		private _sucusalService: SucursalService,
 		private _script: ScriptLoaderService
   ) {
 		//_id,name,surname,email,password,role,      image,empresa,sucursal,fechatrabajo
     this.user = new User('', '',  '',     '',   '',     'ROLE_USER','','','','');
     this.anio = (new Date).getFullYear();
-    this.devEmpresa ='MK Software Developers';
+	this.devEmpresa ='MK Software Developers';
+	//this.hoytxt=this.hoy.getDate() + "/" + (this.hoy.getMonth() +1) + "/" + this.hoy.getFullYear()
   }
 
   ngOnInit() {
@@ -63,6 +76,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 		// console.log(this._userService.getToken());
 		// console.log(this._empresaService.empresaServiceTest());
 		this.getEmpresaAll();
+		this.getSucursalAll();
+
   }
 
 
@@ -73,12 +88,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 					  empresa: {required:true},
 					  sucursal: {required:true},
 					  surname: {required:true},
-            password: {required:true}
+					  password: {required:true},
+					  fechatrabajo: {required:true}
         },
         highlight:function(e){$(e).closest(".form-group").addClass("has-error")},
         unhighlight:function(e){$(e).closest(".form-group").removeClass("has-error")},
 		});
 			this._script.load('./assets/js/scripts/form-plugins.js');
+			
   }
 
   ngOnDestroy() {
@@ -117,7 +134,21 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	})
 	 this._router.navigate(['index']);
 	 }
-	 
+
+	 getSucursalAll(){
+		this._sucusalService.sucursalesAll().subscribe(
+			response => {
+				if (response.sucursal){
+				this.sucursallst = response.sucursal;
+					console.log(this.sucursallst);
+				} else {
+					console.log('error al responder');
+				}
+			}
+		);
+	}
+
+
 	getEmpresaAll(){
 		this._empresaService.empresasAll().subscribe(
 			response => {
@@ -130,74 +161,78 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 			}
 		);
 	}
-
-	 MkClickLogin(){
-		//console.log('inicio');
+	
+	MkClickLogin(){
 		console.log(this.user);
-		//loguear al usuario y conseguir el objeto
+
+		this.loginUser= this.user.surname;
+		this.loginPassword=this.user.password;
 		this.loginEmpresa = this.user.empresa;
 		this.loginSucursal = this.user.sucursal;
 		this.loginFechaTrabajo = this.user.fechatrabajo;
 
+		if ( this.loginUser == "" || !this.loginUser ||
+			 this.loginPassword == "" || !this.loginPassword ||
+			 this.loginEmpresa == "" || !this.loginEmpresa ||
+			 this.loginSucursal == "" || !this.loginSucursal ||
+			 this.loginFechaTrabajo == "" || !this.loginFechaTrabajo    ) {
+			Swal('El usuario no se ha logueado correctamente', this.devEmpresa, 'error');
+			this.status='error';
+			console.log(this.loginUser);
+			console.log(this.loginPassword);
+			console.log(this.loginEmpresa);
+			console.log(this.loginSucursal);
+			console.log(this.loginFechaTrabajo);
 
-		this._userService.signup(this.user,).subscribe(
-			response=>{
-
-				
-				this.identity=response.user;
-				this.message=response.message;
-				//console.log(response.user);
-				//console.log(response.user);
-
-				//if(!this.identity || !this.identity._id){
-				if (!this.identity || !this.identity._id) {
-					console.log('El usuario no se ha logueado correctamente');
-					this.status='error';
-				}else{
-					this.identity.password='';
-					//conseguir elñ token
-					//console.log(this.identity);
-					localStorage.setItem('identity',JSON.stringify(this.identity));
-					this._userService.signup(this.user,'true').subscribe(
-						response=>{
-							this.token = response.token;
-							if(this.token.length <=0 ){
-								alert('el token no se ha generado');
-								this.status='error';
-
-							}else{
-								//console.log(this.token);
-								localStorage.setItem('token', this.token);
-								localStorage.setItem('loginEmpresa',this.loginEmpresa);
-								localStorage.setItem('loginSucursal',this.loginSucursal);
-								localStorage.setItem('loginFechaTrabajo',this.loginFechaTrabajo);
-
-
-								this.status = 'success';
-								Swal('Bienvenido...' + this.identity.nombre , this.devEmpresa, 'success');
-								this._router.navigate(['index']);
-							}
-						},
-						error=>{
-							console.log('Segundo Error');
-							console.log(<any>error);
-						}				 			
-					);
+		} else {	
+			this._userService.signup(this.user,).subscribe(
+				response=>{				
+					this.identity=response.user;
+					this.message=response.message;
+					//console.log(this.loginEmpresa);
+					if (!this.identity || !this.identity._id ) {
+						Swal('El usuario no se ha logueado correctamente', this.devEmpresa, 'error');
+						this.status='error';
+					}else{
+						this.identity.password='';
+						//conseguir el token
+						localStorage.setItem('identity',JSON.stringify(this.identity));
+						this._userService.signup(this.user,'true').subscribe(
+							response=>{
+								this.token = response.token;
+								if(this.token.length <=0 ){
+									Swal('el token no se ha generado', this.devEmpresa, 'error');
+									this.status='error';
+								}else{
+									localStorage.setItem('token', this.token);
+									localStorage.setItem('loginEmpresa',this.loginEmpresa);
+									localStorage.setItem('loginSucursal',this.loginSucursal);
+									localStorage.setItem('loginFechaTrabajo',this.loginFechaTrabajo);
+									this.status = 'success';
+									Swal('Bienvenido...' + this.identity.nombre , this.devEmpresa, 'success');
+									this._router.navigate(['index']);
+								}
+							},
+							error=>{
+								var errorMessage =<any>error;
+								if (errorMessage != null) {
+									var mkerrores =JSON.parse(error._body);
+									Swal(mkerrores.message + '...', this.devEmpresa, 'error');
+									this.status='error';
+								}
+							}				 			
+						);
+					}
+				},
+				error=>{
+					var errorMessage =<any>error;
+					if (errorMessage != null) {
+						var mkerrores =JSON.parse(error._body);
+						Swal(mkerrores.message + '...', this.devEmpresa, 'error');
+						this.status='error';
+					}
 				}
-			},
-			error=>{
-				//console.log('Primer Error');
-				console.log(<any>error)
-				var errorMessage =<any>error;
-				if (errorMessage != null) {
-					var mkerrores =JSON.parse(error._body);
-					//console.log(mkerrores.message);					
-					//alert(mkerrores.message);
-					Swal(mkerrores.message + '...', this.devEmpresa+'HRO', 'error');
-					this.status='error';
-
-			}
+			);		
 		}
-	);		
 	}
 }

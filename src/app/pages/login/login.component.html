@@ -49,27 +49,52 @@
     </div> 
     <form class="ibox-body" id="login-form" #loginform ="ngForm" (ngSubmit)="MkClickLogin()" >
         <h5 class="font-strong text-center ">LOG IN</h5>
+
         <div class="form-group mb-4">
-            <input class="form-control form-control-line" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname"  placeholder="User">
-        </div>
-        <div class="form-group mb-4">
-            <input class="form-control form-control-line" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
+            <div class="input-group-icon input-group-icon-left">
+                <span class="input-icon input-icon-left"><i class="ti-user"></i></span>
+                <input class="form-control form-control-air" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" placeholder="Username">
+            </div>
         </div>
 
-        <div class="form-group mb-4">            
-            <select class="selectpicker form-control" id="empresa" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa" placeholder="enterprise" >
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="vw">VW</option>
-                <option value="audi" selected>Audi</option>           
-            </select>
-        </div>
         <div class="form-group mb-4">
-            <input class="form-control form-control-line" type="text" name="sucursal" #sucursal="ngModel" [(ngModel)]="user.sucursal"  placeholder="Branch">
-        </div> 
-        <div class="form-group mb-4"> 
-            <input class="input-group date form-control form-control-line" type="text" name="fechatrabajo" #fechatrabajo="ngModel" [(ngModel)]="user.fechatrabajo" value="15/08/2018" placeholder="Work Date">
-        </div>        
+            <div class="input-group-icon input-group-icon-left">
+                <span class="input-icon input-icon-left"><i class="ti-lock"></i></span>
+                <input class="form-control form-control-air" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+            <div class="input-group-icon input-group-icon-left">
+                <span class="input-icon input-icon-left"><i class="fa fa-building-o"></i></span>            
+                <select class="form-control form-control-air" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa" placeholder="Enterprise">  
+                    <option *ngFor="let e of empresalst" [ngValue]="e.empresa">{{e.empresa}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group mb-4">
+                <div class="input-group-icon input-group-icon-left">
+                    <span class="input-icon input-icon-left"><i class="ti-home"></i></span>            
+                    <select class="form-control form-control-air" name="sucursal" #sucursal="ngModel" [(ngModel)]="user.sucursal" placeholder="Branch">  
+                        <option *ngFor="let s of sucursallst" [ngValue]="s.sucursal">{{s.sucursal}}</option>
+                    </select>
+                </div>
+        </div>
+     
+ <!--        <div class="form-group mb-4" id="mkSimpleDate" >
+            <div class="input-group date">
+                <span class="input-group-addon bg-white"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control form-control-air" name="fechatrabajo"  #fechatrabajo="ngModel" [(ngModel)]="user.fechatrabajo">                
+            </div>
+        </div> -->
+        
+        <div class="form-group mb-4">
+                 <div class="input-group date mkform_datetime">
+                    <span class="input-group-addon bg-white"><i class="fa fa-calendar"></i></span>
+                    <input class="form-control" type="text" class="form-control form-control-air" name="fechatrabajo"  #fechatrabajo="ngModel" [(ngModel)]="user.fechatrabajo">
+                </div>
+            </div>
 
         <div class="flexbox mb-5">
             <span>
@@ -78,7 +103,8 @@
                     <span></span>
                 </label>Remember</span>
             <a class="text-primary" routerLink="/forgot_password">Forgot password?</a>
-        </div>
+        </div> 
+
         <div class="text-center mb-4">
             <button type="submit" class="btn btn-primary btn-rounded btn-block" [disabled]="!loginform.form.valid">LOGIN</button>
 

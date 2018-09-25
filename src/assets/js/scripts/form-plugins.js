@@ -8,6 +8,15 @@ $(document).ready(function(){
     });
 
     // Bootstrap datepicker
+    $('#mkSimpleDate .input-group.date').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        format: "dd/mm/yyyy"
+    });
+
     $('#date_1 .input-group.date').datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
@@ -46,6 +55,11 @@ $(document).ready(function(){
     $('#date_6').datepicker({});
 
     // DateTime Picker
+
+    $(".mkform_datetime").datetimepicker({
+        format: 'dd-mm-yyyy'
+    });
+
 
     $(".form_datetime").datetimepicker({
         format: 'yyyy-mm-dd hh:ii:ss'
