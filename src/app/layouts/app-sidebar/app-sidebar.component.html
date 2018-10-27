@@ -24,7 +24,27 @@
       </ul>
     </li>
     <li class="heading">Modulos</li>
-    <!-- Compras Inicio -->
+
+    <!-- Configuracion Inicio -->
+    <li routerLinkActive="active">
+        <a href="href=&quot;javascript:;&quot;">
+          <i class="sidebar-item-icon ti-settings"></i>
+          <span class="nav-label">Configuracion</span>
+          <i class="fa fa-angle-left arrow"></i></a>
+        <ul class="nav-2-level collapse" routerLinkActive="in">
+          <li>
+            <a routerLink="/Usuario" routerLinkActive="active">Usuario</a>
+          </li>
+          <li>
+            <a routerLink="/empresa/list" routerLinkActive="active">Empresa</a>
+          </li>
+          <li>
+            <a routerLink="/sucursal" routerLinkActive="active">Sucursal</a>
+          </li>
+        </ul>
+    </li>  
+    <!-- Configuracion Fin --> 
+    <!-- people Inicio -->
     <li routerLinkActive="active">
         <a href="href=&quot;javascript:;&quot;">
           <i class="sidebar-item-icon ti-user"></i>
@@ -33,11 +53,11 @@
         <ul class="nav-2-level collapse" routerLinkActive="in">
           <li><a routerLink="/user" routerLinkActive="active">User</a>
           </li>
-          <li><a routerLink="/rop" routerLinkActive="active">R.U.P.</a>
+          <li><a routerLink="/people/new" routerLinkActive="active">R.U.P.</a>
           </li>
         </ul>
-      </li>  
-      <!-- Compras Fin -->  
+    </li>  
+    <!-- people Fin -->      
     <!-- Compras Inicio -->
     <li routerLinkActive="active">
       <a href="href=&quot;javascript:;&quot;">
@@ -289,5 +309,8 @@
       </ul>
     </li>
   </ul>
-  <div class="sidebar-footer"><a href="javascript:;"><i class="ti-announcement"></i></a><a routerLink="/calendar"><i class="ti-calendar"></i></a><a routerLink="/mailbox"><i class="ti-comments"></i></a><a routerLink="/login"><i class="ti-power-off"></i></a></div>
+  <div class="sidebar-footer">
+    <a href="javascript:;">
+      <i class="ti-announcement"></i>
+    </a><a routerLink="/calendar"><i class="ti-calendar"></i></a><a routerLink="/mailbox"><i class="ti-comments"></i></a><a routerLink="/logout"><i class="ti-power-off"></i></a></div>
 </div>

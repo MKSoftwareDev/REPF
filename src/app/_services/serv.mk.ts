@@ -24,7 +24,7 @@ export class ConfigService {
 
 
 
-	getConfig(){       
+	getConfig(){      
         
         let headers = new Headers({'Content-Type':'application/json'});
         return this._http.get(this.url+'cfg', {headers:headers}).map(res=>res.json());

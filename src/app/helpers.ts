@@ -48,8 +48,7 @@ export class Helpers {
 	        $('.search-top-bar').backdrop().find('.search-input').focus();
 	    });
 
-	    // Session timeout
-	    
+	    // Session timeout	    
 	    var idle_timer;
 	    (function(){
 	        $('#timeout-activate').click(function(){

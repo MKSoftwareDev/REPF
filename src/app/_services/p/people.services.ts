@@ -8,7 +8,7 @@ import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
 @Injectable()
 
 
-export class EmpresaService {
+export class PeopleService {
     public url: string;
     public identity: string;
     public token: string;
@@ -18,23 +18,18 @@ export class EmpresaService {
 
     }
 
-    empresaServiceTest () {
-        return "empresa prueba de servicio ";
+    people_ServTest () {
+        return "people prueba de servicio ";
     }
-	empresasAll(){               
+	people_ServTodas(){               
         let headers = new Headers({'Content-Type':'application/json'});
-        return this._http.get(this.url+'empresa', {headers:headers}).map(res=>res.json());
-
+        return this._http.get(this.url+'people', {headers:headers}).map(res=>res.json());
     }
-    empresaAdd(empresa){
-
-        let params =JSON.stringify(empresa); 
-        let headers = new Headers({
-              'Content-Type': 'application/json'
-        });
-        return this._http.post(this.url+'empresanew',params,{headers:headers}).map(res=>res.json());
-    }
-
-
-    
+    people_ServNuevo(people){
+        let params =JSON.stringify(people); 
+        let headers = new Headers({'Content-Type': 'application/json'});
+        return this._http.post(this.url+'people/new',params,{headers:headers}).map(res=>res.json());
+    }    
 }
+
+

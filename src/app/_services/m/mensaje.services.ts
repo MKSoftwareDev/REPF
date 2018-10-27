@@ -5,10 +5,12 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
 import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
 
+
+import 'rxjs/add/operator/catch';
 @Injectable()
 
 
-export class EmpresaService {
+export class MensajeService {
     public url: string;
     public identity: string;
     public token: string;
@@ -17,24 +19,12 @@ export class EmpresaService {
         this.url = devEmpresaConfig.BackendUrl;
 
     }
-
-    empresaServiceTest () {
-        return "empresa prueba de servicio ";
-    }
-	empresasAll(){               
-        let headers = new Headers({'Content-Type':'application/json'});
-        return this._http.get(this.url+'empresa', {headers:headers}).map(res=>res.json());
-
-    }
-    empresaAdd(empresa){
-
-        let params =JSON.stringify(empresa); 
+    unMensaje(mensaje){
+        let params =JSON.stringify(mensaje); 
         let headers = new Headers({
               'Content-Type': 'application/json'
         });
-        return this._http.post(this.url+'empresanew',params,{headers:headers}).map(res=>res.json());
-    }
-
-
-    
+        return this._http.get(this.url+'mensaje',{headers:headers}).map(res=>res.json());
+    }   
 }
+

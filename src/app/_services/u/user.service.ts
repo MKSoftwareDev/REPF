@@ -9,14 +9,15 @@ import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
 
 export class UserService{
 	public url: string;
-	public identity: string;
-	public token: string;
+	public identity;
+	public token;
+	public login;
 	constructor( private _http:Http){
 	this.url = devEmpresaConfig.BackendUrl;
 	}
 
-	register(){
-		return "texto desde el servicio";
+	getTest(){
+		return "Prueba user services";
 
 	}
 
@@ -51,6 +52,16 @@ export class UserService{
  			this.token=null;
  		}
  		return this.token;
+	 }
+	 
+	getLogin(){
+ 		let login=localStorage.getItem('login');
+ 		if (login !="undefined") {
+ 			this.login=login;
+ 		}else{
+ 			this.login=null;
+ 		}
+ 		return this.login;
  	}
 
 }

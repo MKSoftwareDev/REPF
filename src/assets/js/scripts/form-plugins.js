@@ -47,6 +47,14 @@ $(document).ready(function(){
         autoclose: true,
         todayHighlight: true
     });
+
+    
+    $( "#datepicker" ).datepicker({
+        autoclose: true,
+        format: 'dd-mm-yyyy'
+    });
+     
+
     $('#date_5 .input-daterange').datepicker({
         keyboardNavigation: false,
         forceParse: false,

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 
 import { LayoutComponent } from './layouts/layout.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -86,6 +87,7 @@ import { PricingTable3Component } from './pages/pricing-table-3/pricing-table-3.
 import { PricingTable4Component } from './pages/pricing-table-4/pricing-table-4.component';
 import { PricingTable5Component } from './pages/pricing-table-5/pricing-table-5.component';
 import { PricingTable6Component } from './pages/pricing-table-6/pricing-table-6.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 import { LoginComponent } from './pages/login/login.component';
 import { Login2Component } from './pages/login-2/login-2.component';
 import { Login3Component } from './pages/login-3/login-3.component';
@@ -99,6 +101,14 @@ import { Error4042Component } from './pages/error-404-2/error-404-2.component';
 import { Error403Component } from './pages/error-403/error-403.component';
 import { Error500Component } from './pages/error-500/error-500.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
+import { SucursalComponent } from './pages/sucursal/sucursal.component';
+
+import { EmpresaListComponent } from './pages/empresa/list/list.component';
+import { EmpresaAddComponent } from './pages/empresa/add/add.component';
+import { EmpresaEditComponent } from './pages/empresa/edit/edit.component';
+import { AddSucursalComponent } from './pages/sucursal/add/add.component';
+import { PeopleComponent } from './pages/people/listar/list.people.component';
+import { PeopleEditComponent } from './pages/people/editar/edit.people.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -110,6 +120,10 @@ const routes: Routes = [
                 path: "index",
                 component: Dashboard7Component
             },
+            {
+                path: "logout",
+                component: LogoutComponent
+            },            
             {
                 path: "dashboard_ecommerce",
                 component: DashboardEcommerceComponent
@@ -398,8 +412,38 @@ const routes: Routes = [
                 path: "profile",
                 component: ProfileComponent
             },
+            {
+                path:"sucursal",
+                component: SucursalComponent
+            },
+            {
+                path:"sucursal/new",
+                component: AddSucursalComponent
+            },
+            {
+                path:"empresa/list",
+                component: EmpresaListComponent
+            },
+            {
+                path:"empresanew",
+                component: EmpresaAddComponent
+            },            
+
+            {
+                path:"empresa/edit/:_id",
+                component: EmpresaEditComponent
+            },
+            {
+                path:"people",
+                component: PeopleComponent
+            },
+            {
+                path:"people/new",
+                component: PeopleEditComponent
+            }     
         ]
     },
+
     {
         path: "login",
         component: LoginComponent
@@ -530,6 +574,7 @@ const routes: Routes = [
     PricingTable5Component,
     PricingTable6Component,
     LoginComponent,
+    LogoutComponent,
     Login2Component,
     Login3Component,
     Login4Component,
@@ -541,12 +586,25 @@ const routes: Routes = [
     Error4042Component,
     Error403Component,
     Error500Component,
-    MaintenanceComponent,
+    MaintenanceComponent,    
+    SucursalComponent,
+
+    EmpresaListComponent,
+    EmpresaAddComponent,
+    EmpresaEditComponent,
+    AddSucursalComponent,
+    PeopleComponent,
+    PeopleEditComponent
+
+    
+
+    
   ],
-  imports: [ RouterModule.forRoot(routes), FormsModule,CommonModule ],
+  imports: [ RouterModule.forRoot(routes), FormsModule,ReactiveFormsModule,CommonModule ],
   exports: [
     RouterModule
   ]
 })
+
 
 export class AppRoutingModule { }

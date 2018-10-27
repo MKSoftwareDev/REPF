@@ -1,8 +1,10 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, NgModule } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
 
 // modelos
 import { User } from '../../_models/u/user.model';
+import { Login } from '../../_models/l/login.model';
 
 // servicios
 import { ScriptLoaderService } from '../../_services/script-loader.service';
@@ -13,7 +15,6 @@ import { SucursalService } from '../../_services/s/sucursal.service';
 
 // sweetalert2
 import Swal from 'sweetalert2';
-//const Swal = require('sweetalert2');
 
 declare var $:any;
 
@@ -24,15 +25,14 @@ declare var $:any;
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	public user: User;
-	public identity;
-	
+	public login : Login;
+	public identity;	
 	public token;
 	public status: string;
 	public errores: string[];
 	public empresalst: string[];
-	public sucursallst: any[];
+	public sucursallst: string[];
 	public message: string;
-	public anio: number;
 	public devEmpresa: string;
 	public clickMessage = '';
 	public loginUser: string;
@@ -40,107 +40,92 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	public loginEmpresa: string;
 	public loginSucursal: string;
 	public loginFechaTrabajo: string;
-	public countries = [
-		{id: 1, name: "United States"},
-		{id: 2, name: "Australia"},
-		{id: 3, name: "Canada"},
-		{id: 4, name: "Brazil"},
-		{id: 5, name: "England"}
-	  ];
-		curUser: any;
-	public nuevoelement:string;
+	public LSlogin: any;
+	public hoy = new Date();
+	public hoytxt: string;
+	
+
 
 
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-		private _userService: UserService,
-		private _empresaService: EmpresaService,
-		private _sucusalService: SucursalService,
-		private _script: ScriptLoaderService
+	private _userService: UserService,
+	private _empresaService: EmpresaService,
+	private _sucusalService: SucursalService,
+	private _script: ScriptLoaderService
   ) {
-		//_id,name,surname,email,password,role,      image,empresa,sucursal,fechatrabajo
+		
     this.user = new User('', '',  '',     '',   '',     'ROLE_USER','','','','');
-    this.anio = (new Date).getFullYear();
-	this.devEmpresa ='MK Software Developers';
-	//this.hoytxt=this.hoy.getDate() + "/" + (this.hoy.getMonth() +1) + "/" + this.hoy.getFullYear()
+	this.devEmpresa = devEmpresaConfig.nombre;	 
+	
   }
 
-  ngOnInit() {
-    $('body').addClass('empty-layout');
-     console.log('Componente Loginnnn iniciado');
-    // console.log(localStorage.getItem('identity'));
-    // console.log(localStorage.getItem('token'));
-    // console.log(this._userService.getIdentity());
-		// console.log(this._userService.getToken());
-		// console.log(this._empresaService.empresaServiceTest());
+	ngOnInit() {
+		$('body').addClass('empty-layout');	
+		console.log('Componente Loginnnn iniciado');
+		console.log(this.user);
 		this.getEmpresaAll();
 		this.getSucursalAll();
-
-  }
-
-
-  ngAfterViewInit() {
-    $('#login-form').validate({
-        errorClass:"help-block",
-        rules: {
-					  empresa: {required:true},
-					  sucursal: {required:true},
-					  surname: {required:true},
-					  password: {required:true},
-					  fechatrabajo: {required:true}
-        },
-        highlight:function(e){$(e).closest(".form-group").addClass("has-error")},
-        unhighlight:function(e){$(e).closest(".form-group").removeClass("has-error")},
+	}
+	ngAfterViewInit() {
+		$('#login-form').validate({
+			errorClass:"help-block",
+			rules: {
+						empresa: {required:true},
+						sucursal: {required:true},
+						surname: {required:true},
+						password: {required:true},
+						fechatrabajo: {required:true}
+			},
+			highlight:function(e){$(e).closest(".form-group").addClass("has-error")},
+			unhighlight:function(e){$(e).closest(".form-group").removeClass("has-error")},
 		});
-			this._script.load('./assets/js/scripts/form-plugins.js');
-			
-  }
+		this._script.load('./assets/js/scripts/form-plugins.js');	
+  	}
 
-  ngOnDestroy() {
+  	ngOnDestroy() {
 		$('body').removeClass('empty-layout');
 		console.log('Componente Loginnnn Finalizado');
-  }
+  	}
 
-  onSubmit() {
-    //console.log(this.user);
-   this.clickMessage = 'You are my hero!';
-	 window.alert(this.clickMessage);
-	 Swal('Oops...', 'Something went wrong!', 'error');
-	 Swal({
-		title: 'Are you sure?',
-		text: 'You will not be able to recover this imaginary file!',
-		type: 'warning',
-		showCancelButton: true,
-		confirmButtonText: 'Yes, delete it!',
-		cancelButtonText: 'No, keep it'
-	}).then((result) => {
-		if (result.value) {
-			Swal(
-				'Deleted!',
-				'Your imaginary file has been deleted.',
-				'success'
-			)
-		// For more information about handling dismissals please visit
-		// https://sweetalert2.github.io/#handling-dismissals
-		} else if (result.dismiss === Swal.DismissReason.cancel) {
-			Swal(
-				'Cancelled',
-				'Your imaginary file is safe :)',
-				'error'
-			)
-		}
-	})
-	 this._router.navigate(['index']);
-	 }
+  	onSubmit() {
+   		this.clickMessage = 'You are my hero!';
+	 	window.alert(this.clickMessage);
+	 	Swal('Oops...', 'Something went wrong!', 'error');
+		Swal({
+			title: 'Are you sure?',
+			text: 'You will not be able to recover this imaginary file!',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Yes, delete it!',
+			cancelButtonText: 'No, keep it'
+		}).then((result) => {
+			if (result.value) {
+				Swal(
+					'Deleted!',
+					'Your imaginary file has been deleted.',
+					'success'
+				)
+			// For more information about handling dismissals please visit
+			// https://sweetalert2.github.io/#handling-dismissals
+			} else if (result.dismiss === Swal.DismissReason.cancel) {
+				Swal(
+					'Cancelled',
+					'Your imaginary file is safe :)',
+					'error'
+				)
+			}
+		})
+	}
 
-	 getSucursalAll(){
+	getSucursalAll(){
 		this._sucusalService.sucursalesAll().subscribe(
 			response => {
 				if (response.sucursal){
-				this.sucursallst = response.sucursal;
-					console.log(this.sucursallst);
+					this.sucursallst = response.sucursal;
+					//console.log(this.sucursallst);
 				} else {
 					console.log('error al responder');
 				}
@@ -148,13 +133,12 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 		);
 	}
 
-
 	getEmpresaAll(){
 		this._empresaService.empresasAll().subscribe(
 			response => {
 				if (response.empresa){
-				this.empresalst = response.empresa;
-					console.log(this.empresalst);
+					this.empresalst = response.empresa;
+					//console.log(this.empresalst);
 				} else {
 					console.log('error al responder');
 				}
@@ -164,7 +148,6 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	
 	MkClickLogin(){
 		console.log(this.user);
-
 		this.loginUser= this.user.surname;
 		this.loginPassword=this.user.password;
 		this.loginEmpresa = this.user.empresa;
@@ -177,15 +160,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 			 this.loginSucursal == "" || !this.loginSucursal ||
 			 this.loginFechaTrabajo == "" || !this.loginFechaTrabajo    ) {
 			Swal('El usuario no se ha logueado correctamente', this.devEmpresa, 'error');
-			this.status='error';
-			console.log(this.loginUser);
-			console.log(this.loginPassword);
-			console.log(this.loginEmpresa);
-			console.log(this.loginSucursal);
-			console.log(this.loginFechaTrabajo);
-
+			this.status='error';		
 		} else {	
-			this._userService.signup(this.user,).subscribe(
+			this._userService.signup(this.user).subscribe(
 				response=>{				
 					this.identity=response.user;
 					this.message=response.message;
@@ -204,12 +181,19 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 									Swal('el token no se ha generado', this.devEmpresa, 'error');
 									this.status='error';
 								}else{
-									localStorage.setItem('token', this.token);
-									localStorage.setItem('loginEmpresa',this.loginEmpresa);
-									localStorage.setItem('loginSucursal',this.loginSucursal);
-									localStorage.setItem('loginFechaTrabajo',this.loginFechaTrabajo);
+									localStorage.setItem('token', this.token);								
+									
+									this.LSlogin = { 
+										usuario:this.loginUser, 
+										empresa:this.loginEmpresa,
+										sucursal:this.loginSucursal,
+										fecha:this.loginFechaTrabajo
+									 };
+																	
+									localStorage.setItem('login',JSON.stringify(this.LSlogin));
 									this.status = 'success';
 									Swal('Bienvenido...' + this.identity.nombre , this.devEmpresa, 'success');
+									console.log(this.user);
 									this._router.navigate(['index']);
 								}
 							},

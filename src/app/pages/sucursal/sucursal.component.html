@@ -1,0 +1,66 @@
+<div class="page-heading">
+    <h1 class="page-title">{{title}}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html"><i class="la la-home font-20"></i></a>
+        </li>        
+         <li class="breadcrumb-item">{{title}}</li> 
+        
+    </ol>
+</div>
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <!-- <h5 class="font-strong mb-4">{{title}}</h5> -->
+            <button class="btn btn-success btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-plus" routerLink="/sucursal/new"></i></button>
+            <div class="flexbox mb-4">
+                <div class="flexbox">
+                    <label class="mb-0 mr-2">Estatus:</label>
+                    <select class="selectpicker show-tick form-control" id="type-filter" title="Filtro" data-style="btn-solid" data-width="150px">
+                        <option value="">Todo</option>
+                        <option>Alta</option>
+                        <option>Baja</option>
+                        <option>Pendiente</option>
+                    </select>
+                </div>
+                <div class="input-group-icon input-group-icon-left mr-3">
+                    <span class="input-icon input-icon-right font-16"><i class="ti-search"></i></span>
+                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text" placeholder="Buscar ...">
+                </div>
+            </div>
+            <div class="table-responsive row">
+                <table class="table table-bordered table-hover" id="datatable_suc">
+                    <thead class="thead-default thead-lg">
+                        <tr>
+                            <th>#</th>
+                            <th>Sucursal</th>
+                            <th>Nombre</th>
+                            <th>Grupo</th>
+                            <th>Estatus</th>
+                            <th>Payment</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let s of sucursallst; let i = index">
+                        
+                            <td>{{i}}</td>
+                            <td>
+                                <a >{{s.sucursal}}</a>
+                            </td>
+                            <td>{{s.nombre}}</td>
+                            <td>{{s.grupo}}</td>
+                            <td>
+                                <span class="badge badge-success badge-pill">{{s.estatus}}</span>
+                            </td>
+                            <td>Paid</td>
+                            <td>
+                                <a class="text-muted font-16" href="javascript:;"><i class="ti-trash"></i></a>
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

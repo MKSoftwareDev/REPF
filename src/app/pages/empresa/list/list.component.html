@@ -1,0 +1,72 @@
+<div class="page-heading">
+    <h1 class="page-title">{{title}}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/index"><i class="la la-home font-20"></i></a>
+        </li>        
+        <li class="breadcrumb-item">{{title}}</li>
+    </ol>
+</div>
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <div>
+                <!-- <h5 class="font-strong mb-4">{{title}}</h5> -->
+                <button class="btn btn-success btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-plus" routerLink="/empresanew"></i></button>
+            </div>
+            
+            <div class="flexbox mb-4">
+                <div class="flexbox">
+                    <label class="mb-0 mr-2">Type:</label>
+                    <select class="selectpicker show-tick form-control" id="type-filter" title="Please select" data-style="btn-solid" data-width="150px">
+                        <option value="">All</option>
+                        <option>Shipped</option>
+                        <option>Completed</option>
+                        <option>Pending</option>
+                        <option>Canceled</option>
+                    </select>
+                </div>
+                <div class="input-group-icon input-group-icon-left mr-3">
+                    <span class="input-icon input-icon-right font-16"><i class="ti-search"></i></span>
+                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text" placeholder="Search ...">
+                </div>
+            </div>
+            <div class="table-responsive row">
+                <table class="table table-bordered table-hover" id="datatable_empresa">
+                    <thead class="thead-default thead-lg">
+                            
+                        <tr>
+                            <th>#</th>
+                            <th>Empresa</th>
+                            <th>Nombre</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Date</th>
+                            <th class="no-sort"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of empresalst; let i = index">
+                                 
+                            <td>{{i}}</td>
+                            <td>
+                                <a routerLink="/empresa/edit/{{e._id}}">{{e.clave}}</a>
+                            </td>
+                            <td>{{e.nombre}}</td>
+                            <td>
+                                <span class="badge badge-success badge-pill">Shipped</span>
+                            </td>
+                            <td>Paid</td>
+                            <td>17.05.2018</td>
+                            <td>
+                                <a class="text-muted font-16" href="javascript:;"><i class="ti-trash"></i></a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
