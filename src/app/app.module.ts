@@ -7,13 +7,11 @@ import { LayoutModule } from './layouts/layout.module';
 import { ScriptLoaderService } from './_services/script-loader.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-//Components
-//import {LoginComponent } from './pages/login/login.component';
-
 @NgModule({
   declarations: [
     AppComponent
   ],
+
   imports: [
     BrowserModule,
     LayoutModule,
@@ -22,7 +20,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [ScriptLoaderService],
+  exports: [
+    FormsModule, 
+    ReactiveFormsModule
+  ],
+
+  providers: [ScriptLoaderService,ReactiveFormsModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

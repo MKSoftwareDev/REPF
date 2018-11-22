@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { devEmpresaConfig } from '../../../_config/d/devEmpresa.config';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 
 //Modelo
 import { People } from '../../../_models/p/people.model';
@@ -19,7 +19,7 @@ declare var $:any;
 @Component({
   selector: 'app-edit-people',
   templateUrl: './edit.people.component.html',
-  providers:[PeopleService,UserService,MensajeService,ReactiveFormsModule,FormsModule]
+  providers:[PeopleService,UserService,MensajeService,FormsModule,ReactiveFormsModule]
 })
 export class PeopleEditComponent implements OnInit {
   public people: People;
@@ -30,7 +30,13 @@ export class PeopleEditComponent implements OnInit {
   public token: any;
   public status: string;
   public mensaje: any; 
-  forma: FormGroup;
+  
+  public telefonos: Array<Object>;
+  public correos: Array<Object>;
+  public newRow: boolean;
+  forma:  FormGroup;
+  correo:  FormArray;
+
 
       
   constructor(
@@ -38,7 +44,8 @@ export class PeopleEditComponent implements OnInit {
     private _router: Router,
     private _peopleService:PeopleService,
     private _userService:UserService,
-    private _mensajeService:MensajeService
+    private _mensajeService:MensajeService,
+    private _fb: FormBuilder,
 
   ) { 
     this.people = new People('','','','','','','',true,[],[],[],null,null,'','');
@@ -46,93 +53,63 @@ export class PeopleEditComponent implements OnInit {
     this.title="Edicion RUR";
     this.mensaje= "{id:4, idioma:'esp'}";
     this.token = this._userService.getToken();
+    this.telefonos=[{tipo:'Celular',numero:'(52) 55 4765 1233',extension:''},
+                   {tipo:'Casa', numero:'(52) 55 57302122',extension:''},
+                   {tipo:'Oficina', numero:'(52) 55 57302122',extension:'487'}];
+    this.correos=[{tipo:'Personal',email:'nestory800@gmail.com'},
+                   {tipo:'Trabajo', email:'hrosales@mksoftwaredev.com'}];                   
+    this.newRow=false;
+  }
+    ngOnInit() {
+      this.createForm();
 
-    this.forma = new FormGroup({        
-      'a': new FormControl('', Validators.required)
-      // 'nombre':    new FormControl(),
-      // 'apellido':  new FormControl(),
-      // 'sapellido': new FormControl(),
-      //'RFC':       new FormControl('')
-      // 'genero':    new FormControl(),
-      // 'esPEP':     new FormControl(),
-      // 'domicilio': new FormGroup({
-      //     'tipo':       new FormControl(),
-      //     'direccion':  new FormControl(),
-      //     'numext':     new FormControl(),
-      //     'numint':     new FormControl(),
-      //     'cp':         new FormControl(),
-      //     'colonia':    new FormControl(),
-      //     'municipio':  new FormControl(),
-      //     'delegacion': new FormControl(),
-      //     'estado':     new FormControl(),
-      // }),
-      // 'telefono':   new FormGroup({
-      //     'tipo':       new FormControl(),
-      //     'numero':     new FormControl(),
-      //     'extension':  new FormControl(),
-      // }),        
-      // 'correo': new FormGroup({
-      //     'tipo':   new FormControl(),
-      //     'email':  new FormControl(),            
-      // }),  
-      // 'nacionalidad': new FormGroup({
-      //     'tipo':           new FormControl(),
-      //     'nacionalidad':   new FormControl(),            
-      // }),      
-      // 'fechaCreacion':  new FormControl(),        
-      // 'fechaactualizacion':  new FormControl(),
-      // 'estatus':  new FormControl(),
-      // '_usuario':  new FormControl()
-    })  
-    
-   
+    };
+
+  public createForm (){
+    this.forma = this._fb.group({
+      clave : [],
+      nombre: [],
+      apellido: [],
+      sapellido: [],
+      RFC:  [],
+      CURP: [],
+      genero: [],
+      esPEP:  [],
+      correo: this._fb.array([
+        this.getCorreo( )
+      ])
+    });
   }
 
-  ngOnChanges() {
-    console.log('00 Componente people iniciado');	
+  getCorreo(): FormGroup {
+    return this._fb.group({
+      tipo: [],
+      email:[]
+    });
   }
 
-  ngOnInit() {
-    console.log('01 Componente people iniciado');
 
+  // add new row
+addCorreo() {
 
+  this.correo = this.forma.get('correo') as FormArray;
+  this.correo.push(this.getCorreo());
+  this.newRow=false;
+}
 
-  }
+// remove row
+removeCorreo(i: number) {
+  const control = <FormArray>this.forma.controls['correo'];
+  control.removeAt(i);
+}
 
-  ngAfterViewInit() {
+  showData(){
+    console.log(this.forma.value);
   }
 
   MK_people_click(){
-      console.log(this.forma.value);
-      console.log(this.forma);
-   }
-
-  MK_people_add_click(){    
-
-    this._peopleService.people_ServNuevo(this.people).subscribe(
-      response => {
-        if(response.empresa){
-          this.peopleAdd = response.empresa;
-          //console.log(this.empresaAdd);
-          Swal('Se dio de ALTA la empresa :'+this.peopleAdd.clave, this.devEmpresa, 'success');
-          this._router.navigate(['people']);
-          //console.log('error al responder');
-        } else {
-          this.message= response.message;
-          Swal(this.message, this.devEmpresa, 'error');
-          console.log('error al responder');
-        }
-      },
-      error=>{
-        var errorMessage =<any>error;
-        if (errorMessage != null) {
-          var mkerrores =JSON.parse(error._body);
-          Swal(mkerrores.message + '...', this.devEmpresa, 'error');
-          this.status='error';
-        }
-      }
-    );
+    console.log(this.forma.value);
   }
-
-
+  
+  get formCorreo() { return <FormArray>this.forma.get('correo'); }
 }

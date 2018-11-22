@@ -70,7 +70,7 @@ export class PeopleComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getPeopleAll(){
-        this._peopleService.people_ServTodas().subscribe(
+        this._peopleService.people_list().subscribe(
             response => {
                 if (response.people){
                     this.peoplelista = response.people;

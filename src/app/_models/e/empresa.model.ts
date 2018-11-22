@@ -8,6 +8,9 @@ export class Empresa {
         public estatus: string,
         public seBorra: boolean,
         public fechaAlta: Date,
+        public domicilio: string[],
+        public telefono: string[],
+
     ){}
 }
 

@@ -34,6 +34,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	public sucursallst: string[];
 	public message: string;
 	public devEmpresa: string;
+	public devEmpresaFrase : string;
+	public devEmpresaFraseIni : string;
+	public devEmpresaFraseIni2 : string;
 	public clickMessage = '';
 	public loginUser: string;
 	public loginPassword: string;
@@ -58,7 +61,10 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {
 		
     this.user = new User('', '',  '',     '',   '',     'ROLE_USER','','','','');
-	this.devEmpresa = devEmpresaConfig.nombre;	 
+	this.devEmpresa = devEmpresaConfig.nombre;	
+	this.devEmpresaFrase= devEmpresaConfig.frace; 
+	this.devEmpresaFraseIni= devEmpresaConfig.fraceIni;
+	this.devEmpresaFraseIni=devEmpresaConfig.fraceIni2;
 	
   }
 
@@ -120,7 +126,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 		})
 	}
 
-	getSucursalAll(){
+	public getSucursalAll(){
 		this._sucusalService.sucursalesAll().subscribe(
 			response => {
 				if (response.sucursal){
@@ -133,8 +139,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 		);
 	}
 
-	getEmpresaAll(){
-		this._empresaService.empresasAll().subscribe(
+	public getEmpresaAll(){
+		this._empresaService.empresa_list().subscribe(
 			response => {
 				if (response.empresa){
 					this.empresalst = response.empresa;

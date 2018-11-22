@@ -11,14 +11,14 @@
     <div class="row">
         <div class="ibox">
             <div class="ibox-head">
-                <div class="ibox-title">Rounded Pills</div><a >{{e.empresa}}</a>
-                <div>
-                        <button class="btn btn-info btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-pencil"></i></button>
-                        <button class="btn btn-primary btn-icon-only btn-circle btn-sm btn-air"><i class="la la-music"></i></button>
-                        <button class="btn btn-pink btn-icon-only btn-circle btn-sm btn-air"><i class="la la-comments"></i></button>
-                        
-                        <button class="btn btn-danger btn-icon-only btn-circle btn-sm btn-air"><i class="la la-warning"></i></button>
-                        <button class="btn btn-white btn-icon-only btn-circle btn-sm btn-air"><i class="la la-cloud-download"></i></button>
+                <!-- <div class="ibox-title">Rounded Pills</div><a >'e.empresa'</a> -->
+                <div class="mt-4 mb-4">
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" ><i class="la la-bars" routerLink="/empresa/list" ></i></button>    
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_edit()"><i class="la la-pencil"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_save()"><i class="la la-save"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_propiedades()"><i class="la la-cubes"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_rep()"><i class="la la-camera-retro"></i></button>                        
+          
                 </div>                
                 <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
                     <li class="nav-item">
@@ -34,36 +34,67 @@
             </div>
             <div class="ibox-body">
                 <div class="tab-content">
-                    <form class="form-info" action="javascript:;">
+                    <form class="form-info" [formGroup]="formaEmpresa" (submit)="_mkSafeEmpresa()" novalidate="novalidate">                            
                         <div class="tab-pane fade show active" id="tab-1-1">
-                                <div class="row">
-                                    <div class="col-sm-3 form-group mb-4">
-                                        <label>ID</label>
-                                        <input class="form-control" type="text" placeholder="ID">
-                                    </div>
-                                    <div class="col-sm-3 form-group mb-4">
-                                        <label>Empresa</label>
-                                        <input class="form-control" type="text" placeholder="Empresa">
-                                    </div>
-                                    <div class="col-sm-6 form-group mb-4">
-                                        <label>Nombre</label>
-                                        <input class="form-control" type="text" placeholder="Nombre">
-                                    </div>                      
+                            <div class="row">
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Clave</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="Clave"
+                                            formControlName="clave"
+                                            [attr.disabled]="mkEditar?'':null"
+                                    >
                                 </div>
-                                <div class="row">
-                                        <div class="col-sm-3 form-group mb-4">
-                                            <label>Estatus</label>
-                                            <input class="form-control" type="text" placeholder="Estatus">
-                                        </div>
-                                        <div class="col-sm-3 form-group mb-4">
-                                            <label>RFC</label>
-                                            <input class="form-control" type="text" placeholder="RFC">
-                                        </div>
-                                        <div class="col-sm-3 form-group mb-4">
-                                            <label>Grupo</label>
-                                            <input class="form-control" type="text" placeholder="Grupo">
-                                        </div>                      
-                                    </div>                                
+                                <div class="col-sm-6 form-group mb-4">
+                                    <label>Nomre</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="Nombre"
+                                            formControlName="nombre"
+                                            [attr.disabled]="mkEditar?'':null"                                            
+                                    >
+                                </div>
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>RFC</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="RFC"
+                                            formControlName="rfc"
+                                            [attr.disabled]="mkEditar?'':null"
+                                    >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Estatus</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="Estatus"
+                                            formControlName="estatus"
+                                            [attr.disabled]="mkEditar?'':null"
+                                    >
+                                </div>                                        
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Grupo</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="Grupo"
+                                            formControlName="grupo"
+                                            [attr.disabled]="mkEditar?'':null"
+                                    >
+                                </div>                      
+                                 
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Fecha Alta</label>
+                                    <input  class="form-control" 
+                                            type="text" 
+                                            placeholder="Fecha Alta"
+                                            formControlName="fechaAlta"
+                                            [attr.disabled]="mkEditar?'':null"
+                                    >
+                                </div>                      
+                            </div>                                                                
                         </div>
 
                         <div class="tab-pane fade" id="tab-1-2">Ut lorem ut enim culpa excepteur veniam voluptate sunt mollit non quis ea fugiat voluptate est tempor veniam est voluptate cillum eu exercitation fugiat dolor voluptate enim dolore exercitation nostrud dolor minim dolore
@@ -78,3 +109,4 @@
         </div>
     </div>
 </div>
+<pre>{{formaEmpresa.value | json}}</pre>

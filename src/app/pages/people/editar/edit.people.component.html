@@ -36,19 +36,94 @@
             </div>
             <div class="ibox-body">
                 <div class="tab-content">                        
-                    <form  [formGroup]="forma"  (ngSubmit)="MK_people_click()" novalidate="novalidate" >
+                    <form  [formGroup]="forma"  (submit)="showData()" novalidate="novalidate" >
                         <div class="tab-pane fade show active" id="tab-1-1">
                             <div class="row">
+
                                 <div class="col-sm-3 form-group mb-4">
                                     <label>Clave</label> 
                                     <input class="form-control" 
                                            type="text" 
-                                           placeholder="a" 
-                                           forControlName="a">
-                                </div>                                 
+                                           placeholder="Clave" 
+                                           formControlName="clave">
+                                           
+                                </div>          
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Nombre</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="Nombre" 
+                                           formControlName="nombre">
+                                           
+                                </div> 
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Apellido</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="Apellido" 
+                                           formControlName="apellido">
+                                           
+                                </div>      
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Seg.Apellido</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="Seg.Apellido" 
+                                           formControlName="sapellido">
+                                           
+                                </div>     
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>RFC</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="RFC" 
+                                           formControlName="RFC">
+                                           
+                                </div>   
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>CUR</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="CURP" 
+                                           formControlName="CURP">
+                                           
+                                </div>         
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Genero</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="Genero" 
+                                           formControlName="genero">
+                                           
+                                </div>      
+                                <div class="col-sm-3 form-group mb-4">
+                                    <label>Es Pep</label> 
+                                    <input class="form-control" 
+                                           type="text" 
+                                           placeholder="Es Pep" 
+                                    formControlName="esPEP">
+                                           
+                                </div>
+                                <div class="col-xl-6">                                     
+                                    <div class="ibox-head">
+                                            <div class="ibox-title">Correo</div>
+                                            <button class="btn btn-info btn-icon-only btn-circle btn-sm btn-air" (click)="addCorreo()" ><i class="la la-plus"></i></button>      
+                                    </div>
+                                    <div class="table-responsive">                                                
+                                        <table class="table">
+                                            <tbody formArrayName="correo" *ngFor="let item of formCorreo.controls; let i = index;">
+                                                <div formGroupName="{{i}}" >
+                                                    <tr>
+                                                        <td><input formControlName="tipo" placeholder="Tipo"></td>
+                                                        <td><input formControlName="email" placeholder="Correo"></td>
+                                                        <td><button class="btn btn-danger btn-icon-only btn-circle btn-sm btn-air" (click)="removeCorreo()" ><i class="la la-trash"></i></button></td>
+                                                    </tr>
+                                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>                                   
+                                </div>
                             </div>
-                                
-                           
                         </div>    
                         <div class="tab-pane fade" id="tab-1-2">
                             Ut lorem ut enim culpa excepteur veniam voluptate sunt mollit non quis ea fugiat voluptate est tempor veniam est voluptate cillum eu exercitation fugiat dolor voluptate enim dolore exercitation nostrud dolor minim dolore

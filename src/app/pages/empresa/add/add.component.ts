@@ -39,7 +39,7 @@ export class EmpresaAddComponent implements OnInit {
     private _mensajeService:MensajeService,
 
   ) { 
-    this.empresa = new Empresa('','','','','','',true,null);
+    this.empresa = new Empresa('','','','','','',true,null,[],[]);
     this.devEmpresa = devEmpresaConfig.nombre;	
     this.title="Add Empresa";
     this.mensaje= "{id:4, idioma:'esp'}";
@@ -62,7 +62,7 @@ export class EmpresaAddComponent implements OnInit {
 
   MkClickAdd(){    
     console.log(this.empresa);
-    this._empresaService.empresaAdd(this.empresa).subscribe(
+    this._empresaService.empresa_new(this.empresa).subscribe(
       response => {
         if(response.empresa){
           this.empresaAdd = response.empresa;

@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+// imports
+
 
 import { LayoutComponent } from './layout.component';
 import { AppHeader } from './app-header/app-header.component';
@@ -22,15 +24,17 @@ import { AppFooter } from './app-footer/app-footer.component';
 	  LayoutComponent,
 	  AppHeader,
 	  AppSidebar,
-	  AppFooter,
+		AppFooter,		
+		FormsModule,
+    ReactiveFormsModule
 	],
 	imports: [
 		BrowserModule,
 		HttpModule,
 		RouterModule,
-		FormsModule,
-		ReactiveFormsModule,
-	]
+		FormsModule, 
+		ReactiveFormsModule
+	],
 })
 export class LayoutModule {
 }

@@ -18,17 +18,27 @@ export class PeopleService {
 
     }
 
-    people_ServTest () {
-        return "people prueba de servicio ";
+    people_test () {
+        return "people prueba de servicio";
     }
-	people_ServTodas(){               
+	people_list(){               
         let headers = new Headers({'Content-Type':'application/json'});
-        return this._http.get(this.url+'people', {headers:headers}).map(res=>res.json());
+        return this._http.get(this.url+'/people', {headers:headers}).map(res=>res.json());
     }
-    people_ServNuevo(people){
+    people_uno(people){  
+        let params =JSON.stringify(people);              
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.get(this.url+'/people', {headers:headers}).map(res=>res.json());
+    }
+    people_edit(people){  
+        let params =JSON.stringify(people);              
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.get(this.url+'/people', {headers:headers}).map(res=>res.json());
+    }
+    people_delete(people){
         let params =JSON.stringify(people); 
         let headers = new Headers({'Content-Type': 'application/json'});
-        return this._http.post(this.url+'people/new',params,{headers:headers}).map(res=>res.json());
+        return this._http.post(this.url+'/people/new',params,{headers:headers}).map(res=>res.json());
     }    
 }
 

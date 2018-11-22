@@ -20,7 +20,7 @@
     }
 
     .login-content {
-        max-width: 400px;
+        max-width: 500px;
         margin: 30px auto 50px;
     }
 
@@ -46,48 +46,58 @@
 <div class="ibox login-content">
     <div class="text-center">
         <span class="auth-head-icon"><i class="la la-user"></i></span>
+        <h5 class="font-strong text-center ">{{devEmpresa}}</h5>
+        <h5 class="font-11 text-center ">{{devEmpresaFrase}}</h5>
+        <h5 class="font-11 text-center ">{{devEmpresaFraseIni}}</h5>
+        <h5 class="font-11 text-center ">{{devEmpresaFraseIni2}}</h5>
+
+        
+
     </div> 
     <form class="ibox-body" id="login-form" #loginform ="ngForm" (ngSubmit)="MkClickLogin()" >
-        <h5 class="font-strong text-center ">LOG IN</h5>
-
-        <div class="form-group mb-4">
-            <div class="input-group-icon input-group-icon-left">
-                <span class="input-icon input-icon-left"><i class="ti-user"></i></span>
-                <input class="form-control form-control-air" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" placeholder="Username">
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
-            <div class="input-group-icon input-group-icon-left">
-                <span class="input-icon input-icon-left"><i class="ti-lock"></i></span>
-                <input class="form-control form-control-air" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
-            <div class="input-group-icon input-group-icon-left">
-                <span class="input-icon input-icon-left"><i class="fa fa-building-o"></i></span>            
-                <select class="form-control form-control-air" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa" placeholder="Enterprise">  
-                        <option value="" disabled selected>Enterprise</option>
-                    <option *ngFor="let e of empresalst" [ngValue]="e.clave">{{e.clave}}</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group mb-4">
+        
+        <div class="row">
+            <div class="col-sm-6 form-group mb-4">
                 <div class="input-group-icon input-group-icon-left">
-                    <span class="input-icon input-icon-left"><i class="ti-home"></i></span>            
-                    <select class="form-control form-control-air" name="sucursal" #sucursal="ngModel" [(ngModel)]="user.sucursal" placeholder="Branch">  
-                        <option value="" disabled selected>Branch</option>
-                        <option *ngFor="let s of sucursallst" [ngValue]="s.sucursal">{{s.sucursal}}</option>
+                    <span class="input-icon input-icon-left"><i class="ti-user"></i></span>
+                    <input class="form-control form-control-air" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" placeholder="Username">
+                </div>
+            </div>
+
+            <div class="col-sm-6 form-group mb-4">
+                <div class="input-group-icon input-group-icon-left">
+                    <span class="input-icon input-icon-left"><i class="ti-lock"></i></span>
+                    <input class="form-control form-control-air" type="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Password">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group mb-4">
+                <div class="input-group-icon input-group-icon-left">
+                    <span class="input-icon input-icon-left"><i class="fa fa-building-o"></i></span>            
+                    <select class="form-control form-control-air" name="empresa" #empresa="ngModel" [(ngModel)]="user.empresa" placeholder="Enterprise">  
+                        <option value="" disabled selected>Enterprise</option>                        
+                        <option *ngFor="let e of empresalst" [ngValue]="e.clave">{{e.clave}}</option>                            
                     </select>
                 </div>
+            </div>
+
+            <div class="col-sm-6 form-group mb-4">
+                    <div class="input-group-icon input-group-icon-left">
+                        <span class="input-icon input-icon-left"><i class="ti-home"></i></span>            
+                        <select class="form-control form-control-air" name="sucursal" #sucursal="ngModel" [(ngModel)]="user.sucursal" placeholder="Branch">  
+                            <option value="" disabled selected>Branch</option>                            
+                            <option *ngFor="let s of sucursallst" [ngValue]="s.sucursal">{{s.sucursal}}</option>
+                        </select>
+                    </div>
+            </div>
         </div>
-        
-        <div class="form-group mb-4">
-            <div class="input-group-icon input-group-icon-left">
-                <span class="input-icon input-icon-left"><i class="fa fa-calendar"></i></span>
-                <input class="form-control form-control-air" type="date" name="fechatrabajo" value="2018-10-03" #fechatrabajo="ngModel" [(ngModel)]="user.fechatrabajo" >
+        <div class="row">
+            <div class="col-sm-6 form-group mb-4">
+                <div class="input-group-icon input-group-icon-left">
+                    <span class="input-icon input-icon-left"><i class="fa fa-calendar"></i></span>
+                    <input class="form-control form-control-air" type="date" name="fechatrabajo" value="2018-10-03" #fechatrabajo="ngModel" [(ngModel)]="user.fechatrabajo" >
+                </div>
             </div>
         </div>
 

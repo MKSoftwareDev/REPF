@@ -18,23 +18,45 @@ export class EmpresaService {
 
     }
 
-    empresaServiceTest () {
+    empresa_test () {
         return "empresa prueba de servicio ";
     }
-	empresasAll(){               
-        let headers = new Headers({'Content-Type':'application/json'});
-        return this._http.get(this.url+'empresa', {headers:headers}).map(res=>res.json());
-
-    }
-    empresaAdd(empresa){
-
+    empresa_new(empresa){
         let params =JSON.stringify(empresa); 
         let headers = new Headers({
               'Content-Type': 'application/json'
         });
-        return this._http.post(this.url+'empresanew',params,{headers:headers}).map(res=>res.json());
+        return this._http.post(this.url+'/empresa/new',params,{headers:headers}).map(
+            res=>res.json()
+            );
     }
+	empresa_edit(empresa,_id){   
+        let mkid = _id;  
+        let params=JSON.stringify(empresa);           
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.put(this.url+'/empresa/'+mkid,params, {headers:headers}).map(
+            res=>res.json()        
+            );
+    } 
+	empresa_list(){               
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.get(this.url+'/empresa', {headers:headers}).map(
+            res=>res.json()        
+            ); 
+    }
+	empresa_delete(_id){  
+        let mkid=_id;             
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.delete(this.url+'/empresa/'+mkid, {headers:headers}).map(
+            res=>res.json()        
+            );
+    }    
+	empresa_uno(_id){  
+        let mkid=_id; 
+        let headers = new Headers({'Content-Type':'application/json'});
+        return this._http.get(this.url+'/empresa/'+mkid, {headers:headers}).map(
+            res=>res.json()        
+            );
+   }      
 
-
-    
 }

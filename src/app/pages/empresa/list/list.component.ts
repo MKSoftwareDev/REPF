@@ -69,11 +69,10 @@ export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
 	getEmpresaAll(){
-		this._empresaService.empresasAll().subscribe(
+		this._empresaService.empresa_list().subscribe(
 			response => {
 				if (response.empresa){
 					this.empresalst = response.empresa;
-					//console.log(this.empresalst);
 				} else {
 					console.log('error al responder');
 				}
