@@ -20,10 +20,9 @@
                     <label class="mb-0 mr-2">Type:</label>
                     <select class="selectpicker show-tick form-control" id="type-filter" title="Please select" data-style="btn-solid" data-width="150px">
                         <option value="">All</option>
-                        <option>Shipped</option>
-                        <option>Completed</option>
-                        <option>Pending</option>
-                        <option>Canceled</option>
+                        <option>ALTA</option>
+                        <option>BAJA</option>
+                        <option>PENDIENTE</option>
                     </select>
                 </div>
                 <div class="input-group-icon input-group-icon-left mr-3">
@@ -39,28 +38,33 @@
                             <th>#</th>
                             <th>Empresa</th>
                             <th>Nombre</th>
-                            <th>Status</th>
-                            <th>Payment</th>
-                            <th>Date</th>
-                            <th class="no-sort"></th>
+                            <th>R.F.C.</th>
+                            <th>Estatus</th>
+                            <th>Grupo</th>
+                            <th>Fecha Alta</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let e of empresalst; let i = index">
-                                 
+                        <tr *ngFor="let e of empresalst; let i = index">                                 
                             <td>{{i}}</td>
                             <td>
-                                <a routerLink="/empresa/edit/{{e._id}}">{{e.clave}}</a>
+                                <h5 class="m-0"><a routerLink="/empresa/edit/{{e._id}}">{{e.clave}}</a></h5>
                             </td>
                             <td>{{e.nombre}}</td>
+                            <td>{{e.rfc}}</td>
                             <td>
-                                <span class="badge badge-success badge-pill">Shipped</span>
+                                <span [ngClass]="mk_getClass(e.estatus)">{{e.estatus}}</span>
+                                <!-- <span [ngClass]="{
+                                    'badge badge-success badge-pill':e.estatus=='ALTA',
+                                    'badge badge-danger badge-pill':e.estatus=='BAJA',
+                                    'badge badge-primary badge-pill':e.estatus=='PENDIENTE'
+                                }">{{e.estatus}}</span> -->
                             </td>
-                            <td>Paid</td>
-                            <td>17.05.2018</td>
-                            <td>
+                            <td>{{e.grupo}}</td>
+                            <td>{{e.fechaAlta | date:formatoFecha}}</td>
+                            <!-- <td>
                                 <a class="text-muted font-16" href="javascript:;"><i class="ti-trash"></i></a>
-                            </td>
+                            </td> -->
                         </tr>
 
                     </tbody>

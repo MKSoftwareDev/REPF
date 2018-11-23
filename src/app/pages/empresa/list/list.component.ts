@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { devEmpresaConfig } from '../../../_config/d/devEmpresa.config';
+import { DatePipe } from '@angular/common';
 
 // servicios
 import { EmpresaService } from '../../../_services/e/empresa.services';
@@ -13,16 +14,20 @@ declare var $:any;
 	providers: [EmpresaService]
 })
 export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
-	public devEmpresa: string;
+  public devEmpresa: string;
+  public formatoFecha:string;
+  public classEstatus:string;
 	public title: string;
-    public empresalst: string[];
+  public empresalst: string[];
     
   constructor(
-    private _empresaService: EmpresaService,	
+    private _empresaService: EmpresaService,
+    private datePipe: DatePipe	
 
 
   ) { 
-    this.devEmpresa = devEmpresaConfig.nombre;	
+    this.devEmpresa = devEmpresaConfig.nombre;
+    this.formatoFecha=devEmpresaConfig.formatoFecha;
     this.title="Empresa";
     this.empresalst=[];
   }
@@ -34,6 +39,20 @@ export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit() {
     console.log('01 Componente empresa iniciado');		
     this.getEmpresaAll();	
+  }
+
+  mk_getClass(status){
+    this.classEstatus=status;
+    //console.log(this.classEstatus);
+    if (this.classEstatus == "ALTA"){
+      return 'badge badge-success badge-pill';
+    } else if (this.classEstatus == "BAJA") {
+      return 'badge badge-danger badge-pill';
+    } else if (this.classEstatus == "PENDIENTE") {
+      return 'badge badge-primary badge-pill';
+    } else {
+      return 'badge badge-success badge-pill';
+    }
   }
 
   ngAfterViewInit() {

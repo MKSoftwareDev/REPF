@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
+import {DatePipe} from '@angular/common';
 
 // imports
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,8 +30,8 @@ import { Error500Component } from './pages/error-500/error-500.component';
 import { SucursalComponent } from './pages/sucursal/sucursal.component';
 
 import { EmpresaListComponent } from './pages/empresa/list/list.component';
-import { EmpresaAddComponent } from './pages/empresa/add/add.component';
 import { EmpresaEditComponent } from './pages/empresa/edit/edit.component';
+
 import { AddSucursalComponent } from './pages/sucursal/add/add.component';
 import { PeopleComponent } from './pages/people/listar/list.people.component';
 import { PeopleEditComponent } from './pages/people/editar/edit.people.component';
@@ -65,12 +66,7 @@ const routes: Routes = [
             {
                 path:"empresa/list",
                 component: EmpresaListComponent
-            },
-            {
-                path:"empresanew",
-                component: EmpresaAddComponent
-            },            
-
+            },       
             {
                 path:"empresa/edit/:_id",
                 component: EmpresaEditComponent
@@ -135,8 +131,7 @@ const routes: Routes = [
     Error403Component,
     Error500Component,        
     SucursalComponent,
-    EmpresaListComponent,
-    EmpresaAddComponent,
+    EmpresaListComponent,    
     EmpresaEditComponent,
     AddSucursalComponent,
     PeopleComponent,
@@ -144,7 +139,7 @@ const routes: Routes = [
   ],
   imports: [ RouterModule.forRoot(routes), FormsModule,ReactiveFormsModule,CommonModule,BrowserModule ],
   exports: [ RouterModule,ReactiveFormsModule,CommonModule],
-  providers: [ReactiveFormsModule]
+  providers: [ReactiveFormsModule,DatePipe]
 })
 
 

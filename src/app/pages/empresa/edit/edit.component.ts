@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { devEmpresaConfig } from '../../../_config/d/devEmpresa.config';
 import { Empresa } from '../../../_models/e/empresa.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Router,ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+
 
 // servicios
 import { EmpresaService } from '../../../_services/e/empresa.services';
@@ -33,13 +34,14 @@ export class EmpresaEditComponent implements OnInit, AfterViewInit, OnChanges {
     private _empresaService: EmpresaService,	
     private rutaActiva: ActivatedRoute,
     private _fb: FormBuilder,
+    private _router: Router,
 
 
   ) { 
     this.devEmpresa = devEmpresaConfig.nombre;	
     this.title="Edit Empresa";
     this.empresalst=[];
-    this.mkEditar=true;
+    this.mkEditar=false;
     this.mkEditarID=true;
 
   }
@@ -72,8 +74,10 @@ export class EmpresaEditComponent implements OnInit, AfterViewInit, OnChanges {
             this.formaEmpresa.controls['rfc'].setValue(this.empresa[0].rfc);
             this.formaEmpresa.controls['grupo'].setValue(this.empresa[0].grupo);
             this.formaEmpresa.controls['estatus'].setValue(this.empresa[0].estatus);
-            this.formaEmpresa.controls['fechaAlta'].setValue(this.empresa[0].estatus);
+            this.formaEmpresa.controls['fechaAlta'].setValue(this.empresa[0].fechaAlta);
+            this.formaEmpresa.controls['seBorra'].setValue(this.empresa[0].seBorra.boolean);
             //console.log(this.empresa);
+            //yourDate, 'yyyyMMddhhmmss')
             //console.log(this.formaEmpresa.value);
 
           } else {
@@ -148,6 +152,7 @@ export class EmpresaEditComponent implements OnInit, AfterViewInit, OnChanges {
             this.empresa = response.empresa;
             console.log('se guardo'); 
             Swal('Guardar...'+this.empresa.clave,'Se guardo Correctamente la Empresa','success');
+            this._router.navigate(['/empresa/list']);
           } else {     
             console.log('error al responder');     
           }
@@ -168,6 +173,7 @@ export class EmpresaEditComponent implements OnInit, AfterViewInit, OnChanges {
             this.empresa = response.empresa;
             //console.log('se guardo');
             Swal('Guardar...'+this.empresa.clave,'Se guardo correctamente la empresa','success');
+            this._router.navigate(['/empresa/list']);
           }          
         },
         error=>{

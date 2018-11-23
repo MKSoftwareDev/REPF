@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from './layouts/layout.module';
 import { ScriptLoaderService } from './_services/script-loader.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     FormsModule, 
     ReactiveFormsModule
+    
   ],
 
-  providers: [ScriptLoaderService,ReactiveFormsModule],
+  providers: [ScriptLoaderService,ReactiveFormsModule,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
