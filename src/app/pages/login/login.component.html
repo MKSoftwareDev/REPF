@@ -87,7 +87,7 @@
                         <span class="input-icon input-icon-left"></span>            
                         <select class="form-control form-control-air" name="sucursal" #sucursal="ngModel" [(ngModel)]="user.sucursal">  
                             <option value="" disabled selected>Branch</option>                            
-                            <option *ngFor="let s of sucursallst" [ngValue]="s.sucursal">{{s.sucursal}}</option>
+                            <option *ngFor="let s of sucursallst" [ngValue]="s.clave">{{s.clave}}</option>
                         </select>
                     </div>
             </div>

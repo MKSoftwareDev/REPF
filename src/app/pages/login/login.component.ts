@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 
 	public getSucursalAll(){
-		this._sucusalService.sucursalesAll().subscribe(
+		this._sucusalService.sucursal_list().subscribe(
 			response => {
 				if (response.sucursal){
 					this.sucursallst = response.sucursal;
@@ -153,7 +153,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 	}
 	
 	MkClickLogin(){
-		console.log(this.user);
+		//console.log(this.user);
 		this.loginUser= this.user.surname;
 		this.loginPassword=this.user.password;
 		this.loginEmpresa = this.user.empresa;
@@ -172,7 +172,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 				response=>{				
 					this.identity=response.user;
 					this.message=response.message;
-					//console.log(this.loginEmpresa);
+					console.log(this.identity);
 					if (!this.identity || !this.identity._id ) {
 						Swal('El usuario no se ha logueado correctamente', this.devEmpresa, 'error');
 						this.status='error';

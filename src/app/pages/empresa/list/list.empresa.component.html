@@ -1,0 +1,93 @@
+<div class="page-heading">
+    <h1 class="page-title">{{title}}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a routerLink="/index"><i class="la la-home font-20"></i></a>
+        </li>        
+        <li class="breadcrumb-item">{{title}}</li>
+    </ol>
+</div>
+<div class="page-content fade-in-up">
+    <div class="ibox">
+        <div class="ibox-body">
+            <div>
+                <!-- <h5 class="font-strong mb-4">{{title}}</h5> -->
+                <button class="btn btn-success btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-plus" routerLink="/empresa/edit/0"></i></button>
+            </div>
+            
+            <div class="flexbox mb-4">
+                <div class="flexbox">
+                    <label class="mb-0 mr-2">Type:</label>
+                    <select class="selectpicker show-tick form-control" id="type-filter" title="Please select" data-style="btn-solid" data-width="150px">
+                        <option value="">All</option>
+                        <option>ALTA</option>
+                        <option>BAJA</option>
+                        <option>PENDIENTE</option>
+                    </select>
+                </div>
+                <div class="input-group-icon input-group-icon-left mr-3">
+                    <span class="input-icon input-icon-right font-16"><i class="ti-search"></i></span>
+                    <input class="form-control form-control-rounded form-control-solid" id="key-search" type="text" placeholder="Search ...">
+                </div>
+            </div>
+            <div class="table-responsive row">
+                <table 
+                        class="table table-bordered table-hover" 
+                        id="datatable_empresa"
+                        data-toggle="table"
+                        data-toolbar="#toolbar"
+                        data-show-export="true"
+                        data-pagination="true"
+                        data-maintain-selected="true"
+                        data-page-size="5"
+                        data-page-list="[5, 25, 50, 100, ALL]"
+                        data-url="/gh/get/response.json/wenzhixin/bootstrap-table/tree/master/docs/data/data2/"
+                        data-export-options='{
+                            "fileName": "test", 
+                            "ignoreColumn": ["state"]
+                        }'
+                        >
+                    <thead class="thead-default thead-lg">
+                            
+                        <tr>
+                            <th>#</th>
+                            <th>Empresa</th>
+                            <th>Nombre</th>
+                            <th>R.F.C.</th>
+                            <th>Estatus</th>
+                            <th>Grupo</th>
+                            <th>Usuario Alta</th>
+                            <th>Fecha Alta</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of empresalst; let i = index">                                 
+                            <td>{{i}}</td>
+                            <td>
+                                <h5 class="m-0"><a routerLink="/empresa/edit/{{e._id}}">{{e.clave}}</a></h5>
+                            </td>
+                            <td>{{e.nombre}}</td>
+                            <td>{{e.rfc}}</td>
+                            <td>
+                                <span [ngClass]="mk_getBottonClass(e.estatus)">{{e.estatus}}</span>
+                                <!-- <span [ngClass]="{
+                                    'badge badge-success badge-pill':e.estatus=='ALTA',
+                                    'badge badge-danger badge-pill':e.estatus=='BAJA',
+                                    'badge badge-primary badge-pill':e.estatus=='PENDIENTE'
+                                }">{{e.estatus}}</span> -->
+                            </td>
+                            <td>{{e.grupo}}</td>
+                            <td>{{e.cveUsuarioAlta}}</td>
+                            <td>{{e.fechaAlta | date:formatoFecha}}</td>
+                            <!-- <td>
+                                <a class="text-muted font-16" href="javascript:;"><i class="ti-trash"></i></a>
+                            </td> -->
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

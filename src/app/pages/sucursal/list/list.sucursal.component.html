@@ -12,7 +12,7 @@
         <div class="ibox-body">
             <div>
                 <!-- <h5 class="font-strong mb-4">{{title}}</h5> -->
-                <button class="btn btn-success btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-plus" routerLink="/empresa/edit/0"></i></button>
+                <button class="btn btn-success btn-icon-only btn-circle btn-sm btn-air" ><i class="la la-plus" routerLink="/sucursal/edit/0"></i></button>
             </div>
             
             <div class="flexbox mb-4">
@@ -31,40 +31,37 @@
                 </div>
             </div>
             <div class="table-responsive row">
-                <table class="table table-bordered table-hover" id="datatable_empresa">
+                <table class="table table-bordered table-hover" id="datatable_sucursal">
                     <thead class="thead-default thead-lg">
                             
                         <tr>
                             <th>#</th>
-                            <th>Empresa</th>
+                            <th>Sucursal</th>
                             <th>Nombre</th>
                             <th>R.F.C.</th>
                             <th>Estatus</th>
                             <th>Grupo</th>
+                            <th>Pertenece a</th>
+                            <th>Usuario Alta</th>
                             <th>Fecha Alta</th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let e of empresalst; let i = index">                                 
+                        <tr *ngFor="let s of sucursallst; let i = index">                                 
                             <td>{{i}}</td>
                             <td>
-                                <h5 class="m-0"><a routerLink="/empresa/edit/{{e._id}}">{{e.clave}}</a></h5>
+                                <h5 class="m-0"><a routerLink="/sucursal/edit/{{s._id}}">{{s.clave}}</a></h5>
                             </td>
-                            <td>{{e.nombre}}</td>
-                            <td>{{e.rfc}}</td>
+                            <td>{{s.nombre}}</td>
+                            <td>{{s.rfc}}</td>
                             <td>
-                                <span [ngClass]="mk_getClass(e.estatus)">{{e.estatus}}</span>
-                                <!-- <span [ngClass]="{
-                                    'badge badge-success badge-pill':e.estatus=='ALTA',
-                                    'badge badge-danger badge-pill':e.estatus=='BAJA',
-                                    'badge badge-primary badge-pill':e.estatus=='PENDIENTE'
-                                }">{{e.estatus}}</span> -->
+                                <span [ngClass]="mk_getBottonClass(s.estatus)">{{s.estatus}}</span>
+
                             </td>
-                            <td>{{e.grupo}}</td>
-                            <td>{{e.fechaAlta | date:formatoFecha}}</td>
-                            <!-- <td>
-                                <a class="text-muted font-16" href="javascript:;"><i class="ti-trash"></i></a>
-                            </td> -->
+                            <td>{{s.grupo}}</td>
+                            <td>{{s.empresa}}</td>
+                            <td>{{s.cveUsuarioAlta}}</td>
+                            <td>{{s.fechaAlta | date:formatoFecha}}</td>
                         </tr>
 
                     </tbody>
@@ -73,4 +70,5 @@
         </div>
     </div>
 </div>
+
 

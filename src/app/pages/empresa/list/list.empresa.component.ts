@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { devEmpresaConfig } from '../../../_config/d/devEmpresa.config';
 import { DatePipe } from '@angular/common';
+import { HTMLfuctions } from '../../../_functions/h/HTMLfuctions';
 
 // servicios
 import { EmpresaService } from '../../../_services/e/empresa.services';
@@ -10,7 +11,7 @@ declare var $:any;
 
 @Component({
   selector: 'app-empresa',
-  templateUrl: './list.component.html',
+  templateUrl: './list.empresa.component.html',
 	providers: [EmpresaService]
 })
 export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
@@ -22,13 +23,15 @@ export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
     
   constructor(
     private _empresaService: EmpresaService,
+    
+
     private datePipe: DatePipe	
 
 
   ) { 
     this.devEmpresa = devEmpresaConfig.nombre;
     this.formatoFecha=devEmpresaConfig.formatoFecha;
-    this.title="Empresa";
+    this.title="Empresas";
     this.empresalst=[];
   }
 
@@ -40,21 +43,11 @@ export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
     console.log('01 Componente empresa iniciado');		
     this.getEmpresaAll();	
   }
-
-  mk_getClass(status){
-    this.classEstatus=status;
-    //console.log(this.classEstatus);
-    if (this.classEstatus == "ALTA"){
-      return 'badge badge-success badge-pill';
-    } else if (this.classEstatus == "BAJA") {
-      return 'badge badge-danger badge-pill';
-    } else if (this.classEstatus == "PENDIENTE") {
-      return 'badge badge-primary badge-pill';
-    } else {
-      return 'badge badge-success badge-pill';
-    }
+  
+  mk_getBottonClass(status){
+    return HTMLfuctions.getEstatusClass(status);
   }
-
+  
   ngAfterViewInit() {
 
     setTimeout(function(){  
@@ -86,6 +79,7 @@ export class EmpresaListComponent implements OnInit, AfterViewInit, OnChanges {
         });
     },300);
   }
+
 
 	getEmpresaAll(){
 		this._empresaService.empresa_list().subscribe(

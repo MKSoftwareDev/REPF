@@ -19,25 +19,35 @@
                     <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_propiedades()"><i class="la la-cubes"></i></button>
                     <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_rep()"><i class="la la-camera-retro"></i></button>                        
           
-                </div>                
+                </div>    
+
+
                 <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#tab-1-1" data-toggle="tab">Active</a>
+                        <button class="btn btn-info btn-fix tablinks" (click)="mk_openTap('general')">
+                                    <span class="btn-icon"><i class="ti-pencil"></i>General</span>
+                        </button>                        
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#tab-1-2" data-toggle="tab">Second</a>
+                        <button class="btn btn-info btn-fix tablinks" (click)="mk_openTap('permisos')">
+                                    <span class="btn-icon"><i class="ti-pencil"></i>Permisos</span>
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#tab-1-3" data-toggle="tab">Third</a>
+                        <button class="btn btn-info btn-fix tablinks" (click)="mk_openTap('otros')">
+                                    <span class="btn-icon"><i class="ti-cog"></i>Otros</span>
+                        </button>
                     </li>
                 </ul>
+
+
             </div>
             <div class="ibox-body">
                 <div class="tab-content">
                     <form class="form-info" [formGroup]="formaEmpresa" (submit)="mk_save()" novalidate="novalidate">                            
-                        <div class="tab-pane fade show active" id="tab-1-1">
+                        <div class="tabcontent" id="general">
                             <div class="row">
-                                <div class="col-sm-3 form-group mb-4">
+                                <div class="col-sm-2 form-group mb-4">
                                     <label>Clave</label>
                                     <input  class="form-control" 
                                             type="text" 
@@ -46,7 +56,7 @@
                                             [attr.disabled]="mkEditar?'':null"
                                     >
                                 </div>
-                                <div class="col-sm-6 form-group mb-4">
+                                <div class="col-sm-3 form-group mb-4">
                                     <label>Nomre</label>
                                     <input  class="form-control" 
                                             type="text" 
@@ -55,7 +65,7 @@
                                             [attr.disabled]="mkEditar?'':null"                                            
                                     >
                                 </div>
-                                <div class="col-sm-3 form-group mb-4">
+                                <div class="col-sm-2 form-group mb-4">
                                     <label>RFC</label>
                                     <input  class="form-control" 
                                             type="text" 
@@ -64,9 +74,8 @@
                                             [attr.disabled]="mkEditar?'':null"
                                     >
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-3 form-group mb-4">
+                            
+                                <div class="col-sm-2 form-group mb-4">
                                     <label>Estatus</label>
                                     <select class="form-control form-control-air" 
                                             formControlName="estatus"
@@ -76,7 +85,7 @@
                                         <option value="PENDIENTE">PENDIENTE</option>   
                                     </select>
                                 </div>                                        
-                                <div class="col-sm-3 form-group mb-4">
+                                <div class="col-sm-2 form-group mb-4">
                                     <label>Grupo</label>
                                     <select class="form-control form-control-air" 
                                         formControlName="grupo"
@@ -85,43 +94,35 @@
                                         <option value="Grupo A">GRUPO A</option>                            
                                         <option value="Grupo B">GRUPO B</option>   
                                     </select>
-                                </div>                      
-                                 
-                                <div class="col-sm-3 form-group mb-4">
-                                    <label>Fecha Alta</label>
-                                    <input  class="form-control" 
-                                            type="date"
-                                            placeholder="Fecha Alta"
-                                            formControlName="fechaAlta"
-                                            [attr.disabled]="mkEditar?'':null">
-                                </div> 
-                                <div class="col-sm-3 form-group mb-4">
-                                    <span>
-                                        <label class="ui-switch switch-icon mr-2 mb-0">
-                                            <input type="checkbox" checked=""
+                                </div>
+                                <div class="col-sm-2 form-group mb-4">                      
+                                <div class="col-2">Se Utiliza</div>
+                                    <div class="col-2">
+                                        <label class="ui-switch switch-icon">
+                                            <input type="checkbox"                                             
                                             formControlName="seBorra"
-                                            [attr.disabled]="mkEditar?'':null"
-                                            >
+                                            [attr.disabled]="mkEditar?'':null" 
+                                            checked>
                                             <span></span>
-                                        </label>Se Borra 
-                                    </span>
-                                </div>                                 
-                            </div> 
-                            <div clas="row">
-                                                                                  
-                            </div>                                                                                            
+                                        </label>
+                                    </div>                                    
+                                </div>                                                       
+                            </div>
                         </div>
-
-                        <div class="tab-pane fade" id="tab-1-2">Ut lorem ut enim culpa excepteur veniam voluptate sunt mollit non quis ea fugiat voluptate est tempor veniam est voluptate cillum eu exercitation fugiat dolor voluptate enim dolore exercitation nostrud dolor minim dolore
-                            pariatur do in in anim in dolor id ad eiusmod velit nisi tempor sint esse dolore qui laboris ad eiusmod pariatur id eu dolore labore ad commodo qui voluptate in ipsum ut irure magna in non do enim deserunt mollit
-                            sint id sed deserunt in velit incididunt pariatur sunt nisi lorem duis laboris sunt laboris dolor in velit est aute cillum nulla et dolor aliquip esse non.</div>
-                        <div class="tab-pane fade" id="tab-1-3">do reprehenderit aliqua anim laboris elit quis ad esse labore consectetur dolore ad enim proident consequat nostrud lorem adipiscing proident esse excepteur velit dolor tempor ut incididunt nostrud occaecat veniam cupidatat
-                            eu ex cupidatat dolor dolor sunt consequat ut esse dolor quis in sed do dolor voluptate nulla ut eiusmod sint aliqua fugiat labore in sit voluptate ea laboris occaecat fugiat aute in non elit commodo minim non in
-                            laboris laboris ad magna et pariatur.</div>
+                        <div class="row">
+                            <div class="tabcontent" id="permisos">Ut lorem ut enim culpa excepteur veniam voluptate sunt mollit non quis ea fugiat voluptate est tempor veniam est voluptate cillum eu exercitation fugiat dolor voluptate enim dolore exercitation nostrud dolor minim dolore
+                                pariatur do in in anim in dolor id ad eiusmod velit nisi tempor sint esse dolore qui laboris ad eiusmod pariatur id eu dolore labore ad commodo qui voluptate in ipsum ut irure magna in non do enim deserunt mollit
+                                sint id sed deserunt in velit incididunt pariatur sunt nisi lorem duis laboris sunt laboris dolor in velit est aute cillum nulla et dolor aliquip esse non.</div>
+                        </div>
+                        <div class="row">
+                            <div class="tabcontent" id="otros">do reprehenderit aliqua anim laboris elit quis ad esse labore consectetur dolore ad enim proident consequat nostrud lorem adipiscing proident esse excepteur velit dolor tempor ut incididunt nostrud occaecat veniam cupidatat
+                                eu ex cupidatat dolor dolor sunt consequat ut esse dolor quis in sed do dolor voluptate nulla ut eiusmod sint aliqua fugiat labore in sit voluptate ea laboris occaecat fugiat aute in non elit commodo minim non in
+                                laboris laboris ad magna et pariatur.</div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<pre>{{formaEmpresa.value | json}}</pre>
+<!-- <pre>{{formaEmpresa.value | json}}</pre> -->

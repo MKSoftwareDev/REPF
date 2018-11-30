@@ -13,7 +13,7 @@ import { ConfigService } from '../../_services/serv.mk';
   providers: [ConfigService,UserService]
 })
 export class AppFooter implements OnInit {
-  // variables
+  public usuario: string;
   public empresa: string;
   public sucursal: string;
   public devEmpresa: string;
@@ -28,26 +28,25 @@ export class AppFooter implements OnInit {
   constructor ( 
     private _configServices: ConfigService,
     private _userService: UserService
-     )
+  )
   {
-   this.anio = (new Date).getFullYear();
-   this.devEmpresa = devEmpresaConfig.nombre;
-   this.devEmpLink = devEmpresaConfig.url;
-   this.devEmpFrace = devEmpresaConfig.frace;
-   this.login=JSON.parse(this._userService.getLogin());
+    this.anio = (new Date).getFullYear();
+    this.devEmpresa = devEmpresaConfig.nombre;
+    this.devEmpLink = devEmpresaConfig.url;
+    this.devEmpFrace = devEmpresaConfig.frace;
+    this.login=JSON.parse(this._userService.getLogin());
   }
 
   ngOnInit () {    
     if ((localStorage.identity !== undefined)) {
-
-       this.empresa = this.login.empresa;
-       this.fechaTrabajo = this.login.fecha;
-       this.sucursal = this.login.sucursal;
-
+      this.usuario=this.login.usuario;
+      this.empresa = this.login.empresa;
+      this.fechaTrabajo = this.login.fecha;
+      this.sucursal = this.login.sucursal;
     } else {
       console.log('footer no se encontro localStorage.nombre');
     }
-      
+
   }
 
 

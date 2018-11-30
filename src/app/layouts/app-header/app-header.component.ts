@@ -1,7 +1,7 @@
 import { Component,  OnInit } from '@angular/core';
 
 //Configuracion
-//import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
+import { devEmpresaConfig } from '../../_config/d/devEmpresa.config';
 //Servicios
 import { UserService } from '../../_services/u/user.service';
 
@@ -17,10 +17,13 @@ export class AppHeader implements OnInit {
   public sucursal: string;
   public fechaTrabajo : string;
   public usuario : string;
-
+  public database : string;
+  public backend : string;
 
 constructor ( 
   private _userService: UserService ) {
+    this.backend=devEmpresaConfig.backend;
+    this.database=devEmpresaConfig.database;
 
 }
 
@@ -35,7 +38,7 @@ constructor (
       this.usuario = this.identity.nombre +' '+ this.identity.paterno;
     } else {
 
-      console.log('footer no se encontro localStorage.nombre');
+      console.log('header no se encontro localStorage.nombre');
 
     }
 
