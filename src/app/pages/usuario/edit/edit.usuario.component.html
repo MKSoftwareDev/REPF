@@ -1,0 +1,203 @@
+<div class="page-heading">
+    <h1 class="page-title">{{title}}</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html"><i class="la la-home font-20"></i></a>
+        </li>        
+        <li class="breadcrumb-item">{{title}}</li>
+    </ol>
+</div>
+<div class="page-content fade-in-up">
+    <div class="row">
+        <div class="ibox">
+            <div class="ibox-head">
+                
+                <div class="mt-4 mb-4">
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" ><i class="la la-bars" routerLink="/user/list" ></i></button>    
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_edit()"><i class="la la-pencil"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_save()"><i class="la la-save"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_propiedades()"><i class="la la-cubes"></i></button>
+                    <button class="btn btn-outline-info btn-icon-only btn-circle btn-sm btn-thick" (click)="mk_rep()"><i class="la la-camera-retro"></i></button>                        
+          
+                </div>                
+                <ul class="nav nav-pills nav-pills-rounded nav-pills-air">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tab-1-1" data-toggle="tab">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-1-2" data-toggle="tab">Second</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-1-3" data-toggle="tab">Third</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="ibox-body">
+                <div class="tab-content">
+                    <form class="form-info" [formGroup]="formaUser" (submit)="mk_save()" novalidate="novalidate">                            
+                        <div class="tab-pane fade show active" id="tab-1-1">
+                            <div class="row">
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Clave</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Clave"
+                                        formControlName="surname"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Nombre</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Nombre"
+                                        formControlName="nombre"
+                                        [attr.disabled]="mkEditar?'':null"                                            
+                                >
+                            </div>
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>A. Paterno</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="A. Paterno"
+                                        formControlName="paterno"
+                                        [attr.disabled]="mkEditar?'':null"                                            
+                                >
+                            </div>      
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>A. Materno</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="A. Materno"
+                                        formControlName="materno"
+                                        [attr.disabled]="mkEditar?'':null"                                            
+                                >
+                            </div>  
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Estatus</label>
+                                <select class="form-control form-control-air" 
+                                        formControlName="estatus"
+                                        [attr.disabled]="mkEditar?'':null">
+                                    <option value="ALTA">ALTA</option> 
+                                    <option value="BAJA">BAJA</option>                            
+                                    <option value="PENDIENTE">PENDIENTE</option>   
+                                </select>
+                            </div>                                                             
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>RFC</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="RFC"
+                                        formControlName="rfc"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>CURP</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="CURP"
+                                        formControlName="curp"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>  
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Departamento</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Departamento"
+                                        formControlName="departamento"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div> 
+                            <div class="w-100"></div>      
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Password</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Password"
+                                        formControlName="password"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>     
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Confirma Password</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Password"
+                                        formControlName="confirmPassword"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>                               
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Grupo</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Grupo"
+                                        formControlName="grupo"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>  
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Subgrupo</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="SubGrupo"
+                                        formControlName="subgrupo"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>             
+                             <div class="col-sm-3 form-group mb-4">
+                                <label>Fecha Alta</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="F.Alta"
+                                        formControlName="fechaAlta"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>  
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Usuario Alta</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Alta"
+                                        formControlName="usuarioAlta"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>    
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Fecha Cambio</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Fecha Cambio"
+                                        formControlName="fechaCambio"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>  
+                            <div class="col-sm-3 form-group mb-4">
+                                <label>Usuario Cambio</label>
+                                <input  class="form-control" 
+                                        type="text" 
+                                        placeholder="Cambio"
+                                        formControlName="usuarioCambio"
+                                        [attr.disabled]="mkEditar?'':null"
+                                >
+                            </div>                            
+                        </div>                   
+                        </div>            
+
+                        <div class="tab-pane fade" id="tab-1-2">Ut lorem ut enim culpa excepteur veniam voluptate sunt mollit non quis ea fugiat voluptate est tempor veniam est voluptate cillum eu exercitation fugiat dolor voluptate enim dolore exercitation nostrud dolor minim dolore
+                            pariatur do in in anim in dolor id ad eiusmod velit nisi tempor sint esse dolore qui laboris ad eiusmod pariatur id eu dolore labore ad commodo qui voluptate in ipsum ut irure magna in non do enim deserunt mollit
+                            sint id sed deserunt in velit incididunt pariatur sunt nisi lorem duis laboris sunt laboris dolor in velit est aute cillum nulla et dolor aliquip esse non.
+                        </div>
+                        <div class="tab-pane fade" id="tab-1-3">do reprehenderit aliqua anim laboris elit quis ad esse labore consectetur dolore ad enim proident consequat nostrud lorem adipiscing proident esse excepteur velit dolor tempor ut incididunt nostrud occaecat veniam cupidatat
+                            eu ex cupidatat dolor dolor sunt consequat ut esse dolor quis in sed do dolor voluptate nulla ut eiusmod sint aliqua fugiat labore in sit voluptate ea laboris occaecat fugiat aute in non elit commodo minim non in
+                            laboris laboris ad magna et pariatur.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>{{formaUser.value | json}}</pre>

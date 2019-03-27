@@ -2,11 +2,9 @@ import { Component, OnInit, AfterViewInit, OnChanges } from '@angular/core';
 import { devEmpresaConfig } from '../../../_config/d/devEmpresa.config';
 import { DatePipe } from '@angular/common';
 import { HTMLfuctions } from '../../../_functions/h/HTMLfuctions';
-
-// servicios
 import { SucursalService } from '../../../_services/s/sucursal.service';
-// Alerts
 import Swal from 'sweetalert2';
+
 declare var $:any;
 
 @Component({

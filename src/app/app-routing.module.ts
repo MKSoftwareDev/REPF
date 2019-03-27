@@ -7,16 +7,9 @@ import {DatePipe} from '@angular/common';
 
 // imports
 import { BrowserModule } from '@angular/platform-browser';
-
-
-
-
-
-
 import { LayoutComponent } from './layouts/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { Dashboard7Component } from './pages/dashboard-7/dashboard-7.component';
-
 
 import { LogoutComponent } from './pages/logout/logout.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -28,9 +21,8 @@ import { Error4042Component } from './pages/error-404-2/error-404-2.component';
 import { Error403Component } from './pages/error-403/error-403.component';
 import { Error500Component } from './pages/error-500/error-500.component';
 
-
-import { UserListComponent } from './pages/usuario/list/list.component';
-import { UserEditComponent } from './pages/usuario/edit/edit.component';
+import { UserListComponent } from './pages/usuario/list/list.usuario.component';
+import { UserEditComponent } from './pages/usuario/edit/edit.usuario.component';
 
 import { SucursalListComponent } from './pages/sucursal/list/list.sucursal.component';
 import { SucursalEditComponent } from './pages/sucursal/edit/edit.sucursal.component';
@@ -158,7 +150,8 @@ const routes: Routes = [
     PeopleComponent,
     PeopleEditComponent    
   ],
-  imports: [ RouterModule.forRoot(routes), FormsModule,ReactiveFormsModule,CommonModule,BrowserModule ],
+  imports: [ RouterModule.forRoot(routes),
+     FormsModule,ReactiveFormsModule,CommonModule,BrowserModule ],
   exports: [ RouterModule,ReactiveFormsModule,CommonModule],
   providers: [ReactiveFormsModule,DatePipe]
 })
